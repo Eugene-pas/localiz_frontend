@@ -1,0 +1,56 @@
+{
+    "homePage": {
+        "header": {
+            "title": "Localiz",
+            "signIn": "sign in",
+            "signUp": "sign up"
+        },
+        "productHero": {
+            "mainText": "Translate thanks to Localize",
+            "infoText": "Use special packages that will allow you to quickly localize.",
+            "button": "register",
+            "subText": "Discover the experience"
+        },
+        "productValues": {
+            "article_1": {
+                "title": "Easy to use",
+                "text": "Everything is simple and without unnecessary decisions. The user-friendly interface will ensure intuitive use of the application."
+            },
+            "article_2": {
+                "title": "NEW EXPERIENCES",
+                "text": "Discover new possibilities for fast and convenient localization. Everything is done so that nothing distracts you from the translation."
+            },
+            "article_3": {
+                "title": "Free access",
+                "text": "Everything you need is already at the start. No need to pay for regular use of the starter pack."
+            }
+        },
+        "productCategories": {
+            "title": "All future and present opportunities",
+            "text": []
+        },
+        "productHowItWorks": {
+            "title": "How it works",
+            "text": [
+                "Register in this application",
+                "We create a project, if necessary, we add co-localizers",
+                "Add a file from the suggested formats and localize it."
+            ],
+            "button": "get started"
+        },
+        "productCTA":{
+            "title": "leave feedback",
+            "yourEmail": "Your email",
+            "button": "send",
+            "subText": "Always be in touch with us."
+        },
+        "productSmokingHero": {
+            "title": "got any questions? need help?",
+            "text": "Site developer",
+            "fullName": "Eugen Pasichnyk"
+        },
+        "AppFooter": {
+            "legal": "legal"
+        }
+    }
+}
