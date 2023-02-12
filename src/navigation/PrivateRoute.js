@@ -1,7 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
 import { withRouter, Route, Redirect } from "react-router-dom"
-import { Result } from "@mui/material"
 
 const PrivateRoute = props => {
     const { isAuthUser, role, allowedRoles } = props;
@@ -11,11 +10,7 @@ const PrivateRoute = props => {
     }
     if (isAuthUser && !allowedRoles.includes(role)) {
         return (
-            <Result
-                status="403"
-                title="403"
-                subTitle="You are not allowed to see this page."
-            />
+            <h1>403 - You are not allowed to see this page.</h1>
         );
     }
     if (!isAuthUser) {
