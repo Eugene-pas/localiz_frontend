@@ -1,5 +1,5 @@
 import { userRoles } from '../../userRole';
-import * as types from './CONSTANTS';
+import * as types from '../actions/auth/types';
 //import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
 //import { errorMessage } from '../services/alerts';
