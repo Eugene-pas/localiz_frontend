@@ -11,9 +11,13 @@ import RFTextField from './modules/form/RFTextField';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
+import { login } from '../../services/authentication';
+import { HOME } from '../../navigation/CONSTANTS'
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [sent, setSent] = React.useState(false);
+  const navigate = useNavigate;
 
   const validate = (values) => {
     const errors = required(['email', 'password'], values);
@@ -28,8 +32,9 @@ function SignIn() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (res) => {
     setSent(true);
+    login(res, navigate)
   };
 
   return (

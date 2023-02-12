@@ -1,4 +1,4 @@
-import { userRoles } from '../../userRole';
+import { userRoles } from '../../constants/userRoles';
 import * as types from '../actions/auth/types';
 //import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
@@ -42,7 +42,7 @@ const userReducer = (state = intialState, action) => {
 
         case types.LOGOUT: {
 
-            tokenService.deleteTokens();
+            //tokenService.deleteTokens();
 
             return {
                 ...state,
