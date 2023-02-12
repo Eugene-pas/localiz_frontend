@@ -1,4 +1,4 @@
-import * as CONSTANTS from "../../reducers/CONSTANTS";
+import * as CONSTANTS from "./types";
 
 export const logout = () => {
     return {
