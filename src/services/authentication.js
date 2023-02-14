@@ -58,7 +58,7 @@ export function login(values, navigate) {
             (response) => {
                 store.dispatch(setAccess(response.data));
 
-                let role = store.getState().authReducer.role;
+                let role = store.getState().userReducer.role;
 
                 switch (role) {
                     case userRoles.USER:
@@ -84,7 +84,8 @@ export function login(values, navigate) {
                     );
             }
         )
-        .catch(() => {
+        .catch((res) => {
+            console.error(res);
             errorMessage(
                 authenticationMessages.LOGIN_FAILED,
                 generalMessages.SOMETHING_WENT_WRONG

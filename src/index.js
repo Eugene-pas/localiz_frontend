@@ -4,13 +4,17 @@ import { BrowserRouter } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import App from './App';
 import './i18n/18n'
+import { Provider } from 'react-redux';
+import { store } from "./redux/store"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Suspense fallback={<div style={{display: 'grid', height:'100vh', justifyContent: "center", margin: 'auto 0', backgroundColor: '#FFF2E5'}}><CircularProgress sx={{margin: 'auto 0'}} color="inherit" /></div>}>
       <BrowserRouter>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>  
       </BrowserRouter>
     </Suspense>
   </React.StrictMode>
