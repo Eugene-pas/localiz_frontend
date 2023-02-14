@@ -14,7 +14,6 @@ export const RouterConfig = () => {
             <Route exact path={ROOT} element={ <HomeContainer/>}/>
             <Route exact path={SIGNIN} element={ <SignIn/>}/>   
             <Route exact path={SIGNUP} element={ <SignUp/>}/>  
-            {/* <Route exact path={HOME} element={ <UserHome/>}/>   */}
             <Route exact path={HOME} element={ <PrivateRoute allowedRoles={"User"} element={<UserHome/>}/> }/>
         </Routes>
     )

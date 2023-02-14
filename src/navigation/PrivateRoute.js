@@ -4,7 +4,6 @@ import SignIn from "../pages/Home/SignIn";
 
 const PrivateRoute = props => {
     const userReducer = useSelector(state => state.userReducer)
-    console.log(userReducer)
     const { 
         isAuthUser = userReducer.isAuthUser,
         role = userReducer.role, 

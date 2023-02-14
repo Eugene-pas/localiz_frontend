@@ -9,8 +9,7 @@ function UserHome(){
         <>
             <h1>Welcom, to Home Page</h1>
             <button onClick={()=>{
-                logoutUser(navigate)
-                console.log('done')
+                logoutUser(navigate)               
                 }}>logout</button>
         </>
     )

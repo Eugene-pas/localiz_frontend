@@ -8,23 +8,26 @@ import jwt from 'jwt-decode';
 import { statusCode } from "../constants/statusCodes";
 import { store } from "../redux/store";
 import { userRoles } from '../constants/userRoles';
-import { SIGNUP, HOME } from "../navigation/CONSTANTS"
+import { HOME } from "../navigation/CONSTANTS"
 
 export function register(values, navigate) {
-    let model = {
-        name: values.name,
-        surname: values.surname,
+    const model = {
+        name: values.firstName,
+        surname: values.lastName,
         email: values.email,
         password: values.password
     };
-
     authenticationService
         .register(model)
         .then(
             () => {
                 successMessage(authenticationMessages.SUCCESSFUL_REGISTRATION);
-
-                navigate(SIGNUP);
+                login(
+                    {
+                        email: values.email, 
+                        password: values.password
+                    }, 
+                    navigate)
             },
             (err) => {
                 err.response.status === statusCode.BAD_REQUEST
