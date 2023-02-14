@@ -12,9 +12,12 @@ import RFTextField from './modules/form/RFTextField';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
+import { register } from "../../services/authentication"
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const [sent, setSent] = React.useState(false);
+  const navigate = useNavigate();
 
   const validate = (values) => {
     const errors = required(['firstName', 'lastName', 'email', 'password'], values);
@@ -29,7 +32,8 @@ function SignUp() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (res) => {
+    register(res, navigate);
     setSent(true);
   };
 

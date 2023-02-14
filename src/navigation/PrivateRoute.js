@@ -1,33 +1,28 @@
 import React from "react"
-import { connect } from "react-redux"
-import { withRouter, Route, Redirect } from "react-router-dom"
-import { Result } from "@mui/material"
+import { useSelector } from "react-redux"
+import SignIn from "../pages/Home/SignIn";
 
 const PrivateRoute = props => {
-    const { isAuthUser, role, allowedRoles } = props;
+    const userReducer = useSelector(state => state.userReducer)
+    const { 
+        isAuthUser = userReducer.isAuthUser,
+        role = userReducer.role, 
+        allowedRoles, 
+    } = props;
 
     if (isAuthUser && allowedRoles.includes(role)) {
-        return props.children;
+        return props.element;
     }
     if (isAuthUser && !allowedRoles.includes(role)) {
         return (
-            <Result
-                status="403"
-                title="403"
-                subTitle="You are not allowed to see this page."
-            />
+            <h1>403 - You are not allowed to see this page.</h1>
         );
     }
     if (!isAuthUser) {
-        return <Route component={() => <Redirect to="/login" />} />;
+        return <SignIn/>
     }
 
-    return <Route {...props} />;
+    return;
 };
 
-const mapStateToProps = (stateRedux) => ({
-    isAuthUser: stateRedux.authReducer.isAuthUser,
-    role: stateRedux.authReducer.role
-});
-
-export default withRouter(connect(mapStateToProps)(PrivateRoute));
+export default PrivateRoute

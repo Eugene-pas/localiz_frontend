@@ -1,9 +1,9 @@
-import { userRoles } from '../../userRole';
+import { userRoles } from '../../constants/userRoles';
 import * as types from '../actions/auth/types';
-//import tokenService from "../services/tokens";
+import tokenService from "../../services/tokens";
 import jwt from 'jwt-decode';
-//import { errorMessage } from '../services/alerts';
-//import { authenticationMessages } from '../constants/messages/authentication';
+import { errorMessage } from '../../services/alerts';
+import { authenticationMessages } from '../../constants/messages/authentication';
 
 const intialState = {
     role: userRoles.GUEST,
@@ -22,8 +22,8 @@ const userReducer = (state = intialState, action) => {
 
             if (userRoles[role.toUpperCase()] !== undefined) {
 
-                //tokenService.setLocalAccessToken(accessToken);
-                //tokenService.setLocalRefreshToken(refreshToken);
+                tokenService.setLocalAccessToken(accessToken);
+                tokenService.setLocalRefreshToken(refreshToken);
 
                 return {
                     ...state,
@@ -32,10 +32,10 @@ const userReducer = (state = intialState, action) => {
                 }
             }
 
-            // errorMessage(
-            //     authenticationMessages.LOGIN_FAILED,                    // because we set a role only after login
-            //     authenticationMessages.LOGIN_FAILED_USER_ALREADY_EXIST
-            // );
+            errorMessage(
+                authenticationMessages.LOGIN_FAILED,                    // because we set a role only after login
+                authenticationMessages.LOGIN_FAILED_USER_ALREADY_EXIST
+            );
 
             break;
         }
