@@ -60,7 +60,7 @@ instance.interceptors.response.use(
     if (
       (error.response.status === statusCode.NOT_FOUND ||
         error.response.status === statusCode.INTERNAL_SERVER_ERROR) &&
-      error.config.url == AUTHENTICATION_URLS.REFRESH_TOKEN
+      error.config.url === AUTHENTICATION_URLS.REFRESH_TOKEN
     ) {
       store.dispatch(logout());
     }

@@ -1,8 +1,10 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import SignIn from "../pages/Home/SignIn";
+import Error404 from "../pages/error/Error404"
 
 const PrivateRoute = props => {
+    
     const userReducer = useSelector(state => state.userReducer)
     const { 
         isAuthUser = userReducer.isAuthUser,
@@ -13,13 +15,11 @@ const PrivateRoute = props => {
     if (isAuthUser && allowedRoles.includes(role)) {
         return props.element;
     }
-    if (isAuthUser && !allowedRoles.includes(role)) {
-        return (
-            <h1>403 - You are not allowed to see this page.</h1>
-        );
+    if (isAuthUser && !allowedRoles.includdes(role)) {
+        return <Error404/>;
     }
     if (!isAuthUser) {
-        return <SignIn/>
+        return <SignIn />;
     }
 
     return;
