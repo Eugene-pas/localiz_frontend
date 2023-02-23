@@ -1,7 +1,7 @@
 import authenticationService from "../api/authentication";
 import {successMessage, errorMessage} from "./alerts";
 import {authenticationMessages} from "../constants/messages/authentication";
-import {setAccess, logout} from "../redux/actions/auth/index";
+import {setAccess, logout , setProfile} from "../redux/actions/auth/index";
 import {generalMessages} from "../constants/messages/general";
 import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
@@ -9,6 +9,7 @@ import { statusCode } from "../constants/statusCodes";
 import { store } from "../redux/store";
 import { userRoles } from '../constants/userRoles';
 import { HOME } from "../navigation/CONSTANTS"
+import { getUserProfileInfo } from "./users";
 
 export function register(values, navigate) {
     const model = {
@@ -58,13 +59,15 @@ export function login(values, navigate) {
     authenticationService
         .login(model)
         .then(
-            (response) => {
+            async (response) => {
                 store.dispatch(setAccess(response.data));
-
-                let role = store.getState().userReducer.role;
+                
+                let role = store.getState().authReducer.role;
 
                 switch (role) {
                     case userRoles.USER:
+                        store.dispatch(setProfile(await getUserProfileInfo()));
+                        console.log(store.getState())
                         navigate(HOME);
                         break;
                     default:
@@ -128,7 +131,6 @@ export function checkIsUserRoleValid() {
 
     if (accessToken !== null) {
         let decodedAccessToken = jwt(accessToken);
-
         if (decodedAccessToken.role !== store.getState().authReducer.role) {
             store.dispatch(logout());
         }

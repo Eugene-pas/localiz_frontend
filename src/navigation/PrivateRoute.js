@@ -5,10 +5,10 @@ import Error404 from "../pages/error/Error404"
 
 const PrivateRoute = props => {
     
-    const userReducer = useSelector(state => state.userReducer)
+    const authReducer = useSelector(state => state.authReducer)
     const { 
-        isAuthUser = userReducer.isAuthUser,
-        role = userReducer.role, 
+        isAuthUser = authReducer.isAuthUser,
+        role = authReducer.role, 
         allowedRoles, 
     } = props;
 

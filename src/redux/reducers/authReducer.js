@@ -10,7 +10,7 @@ const intialState = {
     isAuthUser: false
 }
 
-const userReducer = (state = intialState, action) => {
+const authReducer = (state = intialState, action) => {
     switch (action.type) {
 
         case types.SET_ACCESS: {
@@ -57,4 +57,4 @@ const userReducer = (state = intialState, action) => {
     }
 }
 
-export default userReducer;
+export default authReducer;

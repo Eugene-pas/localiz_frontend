@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import DashboardNavbar from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
-import theme from "../../../../style/dashboard-theme";
+import theme from "../../style/dashboard-theme";
 import { ThemeProvider } from "@mui/material/styles";
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({

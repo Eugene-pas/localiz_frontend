@@ -4,9 +4,9 @@ import styled from '@emotion/styled';
 import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Bell as BellIcon } from '../../../../assets/icons/bell';
-import { UserCircle as UserCircleIcon } from '../../../../assets/icons/user-circle';
-import { Users as UsersIcon } from '../../../../assets/icons/users';
+import { Bell as BellIcon } from '../../assets/icons/bell';
+import { UserCircle as UserCircleIcon } from '../../assets/icons/user-circle';
+import { Users as UsersIcon } from '../../assets/icons/users';
 import AccountPopover from './account-popover';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
@@ -81,7 +81,7 @@ const DashboardNavbar = (props) => {
               width: 40,
               ml: 1
             }}
-            src="/static/images/avatars/avatar_1.png"
+            src="/static/avatars/m3.png"
           >
             <UserCircleIcon fontSize="small" />
           </Avatar>
