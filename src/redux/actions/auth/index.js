@@ -12,3 +12,10 @@ export const setAccess = (token) => {
         payload: token
     };
 }
+
+export const setProfile = (profile) => {
+    return {
+        type: CONSTANTS.SET_PROFILE,
+        payload: profile
+    };
+}

@@ -2,15 +2,14 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { ChartBar as ChartBarIcon } from '../../../../assets/icons/chart-bar';
-import { Cog as CogIcon } from '../../../../assets/icons/cog';
-import { Lock as LockIcon } from '../../../../assets/icons/lock';
-import { Selector as SelectorIcon } from '../../../../assets/icons/selector';
-import { ShoppingBag as ShoppingBagIcon } from '../../../../assets/icons/shopping-bag';
-import { User as UserIcon } from '../../../../assets/icons/user';
-import { UserAdd as UserAddIcon } from '../../../../assets/icons/user-add';
-import { Users as UsersIcon } from '../../../../assets/icons/users';
-import { XCircle as XCircleIcon } from '../../../../assets/icons/x-circle';
+import { ChartBar as ChartBarIcon } from '../../assets/icons/chart-bar';
+import { Cog as CogIcon } from '../../assets/icons/cog';
+import { Lock as LockIcon } from '../../assets/icons/lock';
+import { Selector as SelectorIcon } from '../../assets/icons/selector';
+import { ShoppingBag as ShoppingBagIcon } from '../../assets/icons/shopping-bag';
+import { User as UserIcon } from '../../assets/icons/user';
+import { UserAdd as UserAddIcon } from '../../assets/icons/user-add';
+import { Users as UsersIcon } from '../../assets/icons/users';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
@@ -49,11 +48,6 @@ const items = [
     href: '/register',
     icon: (<UserAddIcon fontSize="small" />),
     title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
   }
 ];
 
@@ -85,16 +79,12 @@ export const DashboardSidebar = (props) => {
       >
         <div>
           <Box sx={{ p: 3 }}>
-
-            <a>
-              <Logo
-                sx={{
-                  height: 42,
-                  width: 42
-                }}
-              />
-            </a>
-
+            <Logo
+              sx={{
+                height: 42,
+                width: 42
+              }}
+            />
           </Box>
           <Box sx={{ px: 2 }}>
             <Box
@@ -147,7 +137,7 @@ export const DashboardSidebar = (props) => {
               key={item.title}
               icon={item.icon}
               href={item.href}
-              title={item.title}          
+              title={item.title}
             />
           ))}
         </Box>
@@ -156,7 +146,7 @@ export const DashboardSidebar = (props) => {
             px: 2,
             py: 3
           }}
-        >  
+        >
           <Box
             sx={{
               display: 'flex',

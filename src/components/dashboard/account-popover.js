@@ -1,11 +1,19 @@
 import PropTypes from 'prop-types';
 import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
-import { logoutUser } from '../../../../services/authentication'
+import { logoutUser } from '../../services/authentication'
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const AccountPopover = (props) => {
   const { anchorEl, onClose, open, ...other } = props;
   const navigate = useNavigate();
+  const profileReducer = useSelector(state => state.profileReducer)
+  const [userName, setUserName] = useState(profileReducer.name);
+
+  useEffect(() => {
+    setUserName(profileReducer);
+  }, [profileReducer])
 
   return (
     <Popover
@@ -34,7 +42,7 @@ const AccountPopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          Eugen Pasichnyk
+          {userName.name + " " + userName.surname}
         </Typography>
       </Box>
       <MenuList
