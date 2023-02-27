@@ -8,14 +8,14 @@ import { Lock as LockIcon } from '../../assets/icons/lock';
 import { Selector as SelectorIcon } from '../../assets/icons/selector';
 import { ShoppingBag as ShoppingBagIcon } from '../../assets/icons/shopping-bag';
 import { User as UserIcon } from '../../assets/icons/user';
-import { UserAdd as UserAddIcon } from '../../assets/icons/user-add';
 import { Users as UsersIcon } from '../../assets/icons/users';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+import { ACCOUNT, PROJECTS, SIGNIN, SIGNUP, HOME } from '../../navigation/CONSTANTS';
 
 const items = [
   {
-    href: '/Home',
+    href: HOME,
     icon: (<ChartBarIcon fontSize="small" />),
     title: 'Dashboard'
   },
@@ -25,12 +25,12 @@ const items = [
     title: 'Customers'
   },
   {
-    href: '/products',
+    href: PROJECTS,
     icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
+    title: 'Projects'
   },
   {
-    href: '/account',
+    href: ACCOUNT,
     icon: (<UserIcon fontSize="small" />),
     title: 'Account'
   },
@@ -40,14 +40,9 @@ const items = [
     title: 'Settings'
   },
   {
-    href: '/sign-in/',
+    href: SIGNIN,
     icon: (<LockIcon fontSize="small" />),
     title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
   }
 ];
 
