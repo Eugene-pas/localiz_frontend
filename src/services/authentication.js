@@ -66,8 +66,7 @@ export function login(values, navigate) {
 
                 switch (role) {
                     case userRoles.USER:
-                        setStore();
-                        console.log(store.getState())
+                        setStore();                      
                         navigate(HOME);
                         break;
                     default:
@@ -131,7 +130,7 @@ export function checkIsUserRoleValid() {
 
     if (accessToken !== null) {
         let decodedAccessToken = jwt(accessToken);
-        if (decodedAccessToken.role !== store.getState().authReducer.role) {
+        if (decodedAccessToken.role !== store.getState().authReducer.role) {          
             store.dispatch(logout());
         }
     } else {

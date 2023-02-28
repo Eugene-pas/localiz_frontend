@@ -247,7 +247,7 @@ const ProjectCreateModal = (props) => {
               accept=".json"
               multiple
               type="file"
-              onChange={(event) => setFiles(event.target.files)} />
+              onChange={(event) => setFiles(event.target.files[0])} />
           </Button>
           <Button
             onClick={handleSubmit}
