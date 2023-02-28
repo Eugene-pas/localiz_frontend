@@ -15,9 +15,26 @@ import { UserAdd as UserAddIcon } from '../../assets/icons/user-add';
 import AddUserModal from './add-user-modal';
 import { useState } from 'react';
 import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDocument } from '../../redux/actions/documets/index'
+import { useNavigate } from 'react-router-dom';
+import { DOCUMENTS } from '../../navigation/CONSTANTS'
+
 
 export const ProjectCard = ({ project, ...rest }) => {
+  const documentReducer = useSelector(state => state.documentReducer);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
+
+  const openDocument = (project) => {    
+      documentReducer.projectId = project.id;
+      documentReducer.projectName = project.name;
+      documentReducer.documents = null;
+
+      dispatch(setDocument(documentReducer));
+      navigate(DOCUMENTS);
+  }
 
   return (
   <Card
@@ -28,7 +45,7 @@ export const ProjectCard = ({ project, ...rest }) => {
     }}
     {...rest}
   >
-    <Button>
+    <Button onClick={() => {openDocument(project)}}>
       <CardContent sx={{ p: 1 }}>
         <Typography
           align="center"
@@ -103,7 +120,7 @@ export const ProjectCard = ({ project, ...rest }) => {
             display: 'flex'
           }}
         >
-          <IconButton onClick={() => setOpenModal(true)}>
+          <IconButton sx={{ pl: 0 }} onClick={() => setOpenModal(true)}>
             <UserAddIcon color="action" />
           </IconButton>
           <Typography

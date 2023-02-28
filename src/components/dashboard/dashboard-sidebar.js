@@ -6,12 +6,11 @@ import { ChartBar as ChartBarIcon } from '../../assets/icons/chart-bar';
 import { Cog as CogIcon } from '../../assets/icons/cog';
 import { Lock as LockIcon } from '../../assets/icons/lock';
 import { Selector as SelectorIcon } from '../../assets/icons/selector';
-import { ShoppingBag as ShoppingBagIcon } from '../../assets/icons/shopping-bag';
 import { User as UserIcon } from '../../assets/icons/user';
-import { Users as UsersIcon } from '../../assets/icons/users';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
-import { ACCOUNT, PROJECTS, SIGNIN, SIGNUP, HOME } from '../../navigation/CONSTANTS';
+import { ACCOUNT, PROJECTS, SIGNIN, HOME, DOCUMENTS } from '../../navigation/CONSTANTS';
 
 const items = [
   {
@@ -20,13 +19,8 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/customers',
-    icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
-  },
-  {
     href: PROJECTS,
-    icon: (<ShoppingBagIcon fontSize="small" />),
+    icon: (<ListAltIcon fontSize="small" />),
     title: 'Projects'
   },
   {
