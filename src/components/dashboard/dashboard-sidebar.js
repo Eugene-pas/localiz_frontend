@@ -10,7 +10,9 @@ import { User as UserIcon } from '../../assets/icons/user';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
-import { ACCOUNT, PROJECTS, SIGNIN, HOME, DOCUMENTS } from '../../navigation/CONSTANTS';
+import { ACCOUNT, PROJECTS, SIGNIN, HOME } from '../../navigation/CONSTANTS';
+import { logoutUser } from '../../services/authentication';
+import { useNavigate } from 'react-router-dom';
 
 const items = [
   {
@@ -31,7 +33,7 @@ const items = [
   {
     href: '/settings',
     icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
+    title: 'Error 404'
   },
   {
     href: SIGNIN,
@@ -42,6 +44,7 @@ const items = [
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
+  const navigate = useNavigate();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
@@ -93,7 +96,7 @@ export const DashboardSidebar = (props) => {
                   color="inherit"
                   variant="subtitle1"
                 >
-                  Acme Inc
+                  Localiz Inc
                 </Typography>
                 <Typography
                   color="neutral.400"
@@ -155,8 +158,9 @@ export const DashboardSidebar = (props) => {
             fullWidth
             sx={{ mt: 2 }}
             variant="contained"
+            onClick={() => {logoutUser(navigate)}}
           >
-            Pro Live Preview
+            Log out
           </Button>
         </Box>
       </Box>

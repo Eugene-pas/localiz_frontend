@@ -3,10 +3,12 @@ import authReducer from './authReducer';
 import profileReducer from './profileReducer';
 import projectReducer from './projectReducer';
 import documentReducer from './documentReducer';
+import historyReducer from './historyReducer';
 
 export default combineReducers({
     authReducer: authReducer,
     profileReducer: profileReducer,
     projectReducer: projectReducer,
-    documentReducer: documentReducer
+    documentReducer: documentReducer,
+    historyReducer: historyReducer
 });

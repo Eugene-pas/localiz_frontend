@@ -5,3 +5,4 @@ export const HOME = "/Home";
 export const ACCOUNT = "/account";
 export const PROJECTS = "/projects";
 export const DOCUMENTS = "/documents";
+export const TRANSLATE = "/translate";

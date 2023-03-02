@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   Box,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -13,50 +12,24 @@ import {
   IconButton,
   TableContainer
 } from '@mui/material';
+import { TRANSLATE } from '../../navigation/CONSTANTS';
 import { Delete as IconDelete } from '@mui/icons-material';
 import { deleteDocument } from '../../services/document'
 import { setDocumentData } from '../../redux/setStore';
+import { setHistory } from '../../redux/actions/history';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 export const DocumentListResults = ({ documents, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+  const dispatch = useDispatch();
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
-
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
-
-    if (event.target.checked) {
-      newSelectedCustomerIds = documents.map((document) => document.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
+  const navigate = useNavigate()
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
+    setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
@@ -68,24 +41,21 @@ export const DocumentListResults = ({ documents, ...rest }) => {
       await setDocumentData()
   }
 
+  const onRowClick = (doc) => {
+    dispatch(setHistory(
+      {
+        documentId: doc.id, 
+        documentName: doc.name
+      }));
+    navigate(TRANSLATE);
+  }
+
   return (
     <Card {...rest}>
       <TableContainer >
         <Table sx={{ minWidth: 600 }}>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
-                {documents !== null && documents.length !== 0 ?
-                  <Checkbox
-                    checked={selectedCustomerIds.length === documents.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < documents.length
-                    }
-                    onChange={handleSelectAll}
-                  /> : <></>}
-              </TableCell>
               <TableCell>
                 Name
               </TableCell>
@@ -102,19 +72,13 @@ export const DocumentListResults = ({ documents, ...rest }) => {
           </TableHead>
           <TableBody>
             {documents !== null && documents.length !== 0 ?
-              documents.slice(0, limit).map((document) => (
+              documents.slice(page * limit, page * limit + limit).map((document) => (
                 <TableRow
                   hover
                   key={document.id}
-                  selected={selectedCustomerIds.indexOf(document.id) !== -1}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => onRowClick({id: document.id, name: document.name})}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(document.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, document.id)}
-                      value="true"
-                    />
-                  </TableCell>
                   <TableCell>
                     <Box
                       sx={{
