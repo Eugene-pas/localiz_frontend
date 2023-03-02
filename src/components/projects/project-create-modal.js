@@ -14,6 +14,8 @@ import { Cross as CrossIcon } from "../../assets/icons/cross"
 import { useState } from 'react';
 import { createProject } from '../../services/projects'
 import { setProjectData } from '../../redux/setStore'
+import { addDocumentToProject } from '../../services/document';
+import { setDocumentData } from '../../redux/setStore';
 
 const BoxModal = styled(Box)(({ theme }) => ({
   position: "absolute",
@@ -93,18 +95,6 @@ const ProjectCreateModal = (props) => {
     cleanFilds();
     onClose(false);
   }
-
-  const handleUpload = () => {
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (file) {
-        const formData = new FormData();
-        console.log(formData);
-        formData.append("file", file);
-        model.documents.push(formData);
-      }
-    }
-  };
 
   const handleSubmit = async () => {
     if (name.trim() === '') {
@@ -240,15 +230,6 @@ const ProjectCreateModal = (props) => {
           justifyContent: "space-between",
           padding: 2
         }}>
-          <Button color="secondary" variant="contained" component="label">
-            Upload
-            <input
-              hidden
-              accept=".json"
-              multiple
-              type="file"
-              onChange={(event) => setFiles(event.target.files[0])} />
-          </Button>
           <Button
             onClick={handleSubmit}
             color="primary"

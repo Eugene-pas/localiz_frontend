@@ -36,6 +36,10 @@ const DocumentsPage = () => {
     setDocuments(documentReducer.documents);
   }, [documentReducer])
 
+  const hendleSearch = (data) => {
+    setDocuments(data)
+  }
+
   return (
     <DashboardLayout>
       <Box
@@ -49,6 +53,7 @@ const DocumentsPage = () => {
           <DocumentListToolbar
             projectId={documentReducer.projectId}
             projectName={documentReducer.projectName}
+            search={hendleSearch}
           />
           <Box sx={{ mt: 3 }}>
             {document !== null ?

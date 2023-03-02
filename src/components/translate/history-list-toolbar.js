@@ -8,36 +8,24 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../assets/icons/search';
-import { addDocumentToProject } from '../../services/document';
-import { setDocumentData } from '../../redux/setStore';
 import { useSelector } from 'react-redux';
 
-export const DocumentListToolbar = ({search ,projectId ,projectName, ...props}) => {
+export const HistoryListToolbar = ({documentName ,search, ...props}) => {
   const documents = useSelector(state => state.documentReducer.documents)
 
   const hendleSearch = (event) => {
-    const data = [];
-    for (let i = 0; i < documents.length; i++) {
-      if(documents[i].name.includes(event.target.value))
-        data.push(documents[i])
-    }
-    search(data)
-    if(event.target.value == "")
-      search(documents)
+    // const data = [];
+    // for (let i = 0; i < documents.length; i++) {
+    //   if(documents[i].name.includes(event.target.value))
+    //     data.push(documents[i])
+    // }
+    // search(data)
+    // if(event.target.value == "")
+    //   search(documents)
   }
 
-  const hendleUpload = async (e) => {
-    const length = e.target.files.length;
-    const formData = new FormData();
-
-    for (let i = 0; i < length; i++) {
-      formData.append("documents", e.target.files[i]);
-    }
-    formData.append("projectId", projectId);
-
-    if(length > 0)
-     await addDocumentToProject(formData);
-     await setDocumentData();
+  const hendleTranslate = async (e) => {
+    
   }
 
   return (
@@ -53,15 +41,15 @@ export const DocumentListToolbar = ({search ,projectId ,projectName, ...props}) 
       >
        <Typography
           sx={{ m: 1 }}
-          variant="h4"
+          variant="h5"
         >
-          {projectName}
+          {documentName}
         </Typography>
         <Typography
           sx={{ m: 1 }}
           variant="h5"
         >
-          Documents
+          Translate
         </Typography>
         <Box sx={{ m: 1 }}>
           <Button
@@ -70,13 +58,13 @@ export const DocumentListToolbar = ({search ,projectId ,projectName, ...props}) 
             color="secondary"
             variant="contained"
             component="label">
-            Add Document
+            Get document
             <input
               hidden
               accept=".json"
               multiple
               type="file"
-              onChange={hendleUpload} />
+              onChange={hendleTranslate} />
           </Button>
         </Box>
       </Box>
@@ -99,7 +87,7 @@ export const DocumentListToolbar = ({search ,projectId ,projectName, ...props}) 
                     </InputAdornment>
                   )
                 }}
-                placeholder="Search document"
+                placeholder="Search history"
                 variant="outlined"
               />
             </Box>

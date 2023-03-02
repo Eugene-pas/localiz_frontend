@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Pagination } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import { ProjectListToolbar } from '../../components/projects/project-list-toolbar';
 import { ProjectCard } from '../../components/projects/project-card';
 import { DashboardLayout } from '../../components/dashboard/index';
@@ -6,15 +6,15 @@ import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
 const ProjectPage = () => {
-  const projectReducer = useSelector(state => state.projectReducer)
-  const [projects, setProjects] = useState(projectReducer.projects)
+  const projectReducer = useSelector(state => state.projectReducer);
+  const [projects, setProjects] = useState(projectReducer.projects);
 
   useEffect(() => {
     setProjects(projectReducer.projects);
   }, [projectReducer])
 
   const hendleSearch = (data) => {
-    setProjects(data)
+    setProjects(data);
   }
 
   return (
@@ -45,19 +45,6 @@ const ProjectPage = () => {
                 </Grid>
               ))}
             </Grid>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              pt: 3
-            }}
-          >
-            <Pagination
-              color="primary"
-              count={3}
-              size="small"
-            />
           </Box>
         </Container>
       </Box>
