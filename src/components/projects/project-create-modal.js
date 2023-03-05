@@ -16,6 +16,7 @@ import { createProject } from '../../services/projects'
 import { setProjectData } from '../../redux/setStore'
 import { addDocumentToProject } from '../../services/document';
 import { setDocumentData } from '../../redux/setStore';
+import languages from '../../constants/languages';
 
 const BoxModal = styled(Box)(({ theme }) => ({
   position: "absolute",
@@ -189,7 +190,7 @@ const ProjectCreateModal = (props) => {
             <Autocomplete
               disablePortal
               onChange={handleFromChange}
-              options={["EN", "UKR"]}
+              options={languages.map((item) => item.toUpperCase())}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="standard"
@@ -210,7 +211,7 @@ const ProjectCreateModal = (props) => {
             <Autocomplete
               disablePortal
               onChange={handleToChange}
-              options={["EN", "UA"]}
+              options={languages.map((item) => item.toUpperCase())}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="standard"
