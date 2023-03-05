@@ -8,24 +8,20 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../assets/icons/search';
+import { Arrow as ArrowIcon } from '../../assets/icons/arrow';
 import { useSelector } from 'react-redux';
+import { download } from '../../services/document';
 
-export const HistoryListToolbar = ({documentName ,search, ...props}) => {
-  const documents = useSelector(state => state.documentReducer.documents)
+export const HistoryListToolbar = ({ documentName, search, ...props }) => {
+  const historyReducer = useSelector(state => state.historyReducer);
+  const projectId = useSelector(state => state.documentReducer.projectId);
+  const project = useSelector(state => state.projectReducer.projects.find(p => p.id === projectId));
 
-  const hendleSearch = (event) => {
-    // const data = [];
-    // for (let i = 0; i < documents.length; i++) {
-    //   if(documents[i].name.includes(event.target.value))
-    //     data.push(documents[i])
-    // }
-    // search(data)
-    // if(event.target.value == "")
-    //   search(documents)
-  }
-
-  const hendleTranslate = async (e) => {
-    
+  const hadleDownload = async () => {
+    await download({
+      documentId: historyReducer.documentId,
+      documentName: historyReducer.documentName
+    });
   }
 
   return (
@@ -39,12 +35,35 @@ export const HistoryListToolbar = ({documentName ,search, ...props}) => {
           m: -1
         }}
       >
-       <Typography
-          sx={{ m: 1 }}
-          variant="h5"
-        >
-          {documentName}
-        </Typography>
+        <Box textAlign={"center"}>
+          <Typography
+            sx={{ m: 1 }}
+            variant="h5"
+          >
+            {documentName}
+          </Typography>
+          <Box
+            display={"flex"}
+            gap={1}
+            justifyContent={"center"}>
+            <Typography
+              align="center"
+              color="textPrimary"
+              variant="h6"
+            >
+              {project.fromTranslate}
+            </Typography>
+            <ArrowIcon color="action" />
+            <Typography
+              align="center"
+              color="textPrimary"
+              variant="h6"
+            >
+              {project.toTranslate}
+            </Typography>
+          </Box>
+        </Box>
+
         <Typography
           sx={{ m: 1 }}
           variant="h5"
@@ -53,22 +72,17 @@ export const HistoryListToolbar = ({documentName ,search, ...props}) => {
         </Typography>
         <Box sx={{ m: 1 }}>
           <Button
+            onClick={hadleDownload}
             type="button"
             value="upload"
             color="secondary"
             variant="contained"
             component="label">
             Get document
-            <input
-              hidden
-              accept=".json"
-              multiple
-              type="file"
-              onChange={hendleTranslate} />
           </Button>
         </Box>
       </Box>
-      <Box sx={{ mt: 3 }}>
+      {/* <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>
             <Box sx={{ maxWidth: 500 }}>
@@ -93,7 +107,7 @@ export const HistoryListToolbar = ({documentName ,search, ...props}) => {
             </Box>
           </CardContent>
         </Card>
-      </Box>
+      </Box> */}
     </Box>
   );
 }

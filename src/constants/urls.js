@@ -27,7 +27,8 @@ export const PROJECTS_URLS = {
 export const DOCUMENT_URLS = {
     ADD: DOCUMENT_URL + "/add",
     DELETE: DOCUMENT_URL,
-    ALL_FOR_USER: DOCUMENT_URL + "/all-for-user"
+    ALL_FOR_USER: DOCUMENT_URL + "/all-for-user",
+    DOWNLOAD: DOCUMENT_URL + "/download"
 };
 
 export const HISTORY_URLS = {
