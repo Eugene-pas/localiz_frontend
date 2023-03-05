@@ -210,7 +210,7 @@ const ProjectCreateModal = (props) => {
             <Autocomplete
               disablePortal
               onChange={handleToChange}
-              options={["EN", "UKR"]}
+              options={["EN", "UA"]}
               renderInput={(params) =>
                 <TextField {...params}
                   variant="standard"

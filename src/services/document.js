@@ -90,3 +90,32 @@ export function getAllDocumentsUser(modal) {
             }
         )
 }
+
+export function download(modal) {
+    return documentsService
+        .download(modal.documentId)
+        .then(
+            (res) => {
+                const url = window.URL.createObjectURL(new Blob([res.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', modal.documentName);
+                document.body.appendChild(link);
+                link.click(); 
+            },
+            () => {
+                errorMessage(
+                    documentMessages.DOWNLOAD_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(
+            (res) => {
+                console.error(res);
+                errorMessage(
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+}

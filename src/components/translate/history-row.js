@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     Box,
     Table,
@@ -20,12 +20,20 @@ import moment from 'moment';
 
 export const HistoryRow = ({update, history, ...rest }) => {
     const [open, setOpen] = useState(false);
-    const [translateData, setTranslate] = useState("");
+    const [isCanSave, setIsCanSave] = useState(true);
+    const [translateData, setTranslate] = useState(
+        (history.translateText ? history.translateText : ""));
 
     const hendleTranslate = (event) => {
-        console.log(translate);
         setTranslate(event.target.value);
     }
+
+    useEffect(() => {
+        if(translateData === (history.translateText ? history.translateText : ""))
+            setIsCanSave(true);
+        else 
+            setIsCanSave(false);
+    },[translateData])
 
     const hendleSave = async () => {
 
@@ -36,6 +44,7 @@ export const HistoryRow = ({update, history, ...rest }) => {
             version: ""
         })
         update();
+        setIsCanSave(true);
     }
 
     return (
@@ -103,11 +112,16 @@ export const HistoryRow = ({update, history, ...rest }) => {
                                 width: "100%" 
                             }}
                         />
-                        <Tooltip title={"Save"}>
-                        <IconButton onClick={hendleSave}>
+                        
+                        <IconButton 
+                        onClick={hendleSave}
+                        disabled={isCanSave}
+                        >
+                            <Tooltip title={"Save"}>
                             <SaveAltIcon />
+                            </Tooltip>
                         </IconButton>
-                        </Tooltip>
+                        
                     </Box>
                 </TableCell>
             </TableRow>

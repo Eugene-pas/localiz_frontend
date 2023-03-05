@@ -13,4 +13,8 @@ export default class documentsService {
   static getAllDocumentsUser(modal) {
     return instance.get(DOCUMENT_URLS.ALL_FOR_USER + "?projectId=" + modal);
   }
+
+  static download(modal) {
+    return instance.get(DOCUMENT_URLS.DOWNLOAD + "?documentId=" + modal, {responseType: "blob"});
+  }
 }
