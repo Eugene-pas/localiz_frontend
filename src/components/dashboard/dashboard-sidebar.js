@@ -15,11 +15,11 @@ import { logoutUser } from '../../services/authentication';
 import { useNavigate } from 'react-router-dom';
 
 const items = [
-  {
-    href: HOME,
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
-  },
+  // {
+  //   href: HOME,
+  //   icon: (<ChartBarIcon fontSize="small" />),
+  //   title: 'Dashboard'
+  // },
   {
     href: PROJECTS,
     icon: (<ListAltIcon fontSize="small" />),
@@ -29,11 +29,6 @@ const items = [
     href: ACCOUNT,
     icon: (<UserIcon fontSize="small" />),
     title: 'Account'
-  },
-  {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Error 404'
   },
   {
     href: SIGNIN,

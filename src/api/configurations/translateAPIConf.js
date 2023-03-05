@@ -1,20 +1,19 @@
 import axios from "axios";
 
-const options = {
-  method: 'POST',
-  url: 'https://google-translate1.p.rapidapi.com/language/translate/v2',
-  headers: {
-    'content-type': 'application/x-www-form-urlencoded',
-    'Accept-Encoding': 'application/gzip',
-    'X-RapidAPI-Key': process.env.RAPID_API_KEY,
-    'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com'
-  }
-};
-
-axios.request(options).then(function (response) {
-	console.log(response.data);
-}).catch(function (error) {
-	console.error(error);
-});
-
-export default axios;
+export const translateAPI = (from, to, text) => {
+    const options = {
+        method: 'GET',
+        url: 'https://translated-mymemory---translation-memory.p.rapidapi.com/get',
+        params: {langpair: `${from}|${to}`, q: text, mt: '1', onlyprivate: '0', de: 'a@b.c'},
+        headers: {
+          'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
+          'X-RapidAPI-Host': 'translated-mymemory---translation-memory.p.rapidapi.com'
+        }
+      };
+    return axios.request(options).then(function (response) {
+        return response.data
+    }).catch(function (error) {
+        console.error(error);
+        return false;
+    });
+}
