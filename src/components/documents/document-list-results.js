@@ -25,6 +25,7 @@ export const DocumentListResults = ({ documents, ...rest }) => {
   const dispatch = useDispatch();
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
+  const [onDelete, setOnDelete] = useState(false);
   const navigate = useNavigate()
 
   const handleLimitChange = (event) => {
@@ -37,6 +38,7 @@ export const DocumentListResults = ({ documents, ...rest }) => {
   };
 
   const handleDelete = async (documentId) => { 
+      setOnDelete(true);
       await deleteDocument(documentId);
       await setDocumentData()
   }
@@ -77,9 +79,10 @@ export const DocumentListResults = ({ documents, ...rest }) => {
                   hover
                   key={document.id}
                   style={{ cursor: 'pointer' }}
-                  onClick={() => onRowClick({id: document.id, name: document.name})}
                 >
-                  <TableCell>
+                  <TableCell
+                  onClick={() => onRowClick({id: document.id, name: document.name})}
+                  >
                     <Box
                       sx={{
                         alignItems: 'center',
@@ -94,14 +97,18 @@ export const DocumentListResults = ({ documents, ...rest }) => {
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                  onClick={() => onRowClick({id: document.id, name: document.name})}
+                  >
                     {moment.utc(document.creationDate).format('DD/MM/yyyy')}
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                  onClick={() => onRowClick({id: document.id, name: document.name})}
+                  >
                     {document.description}
                   </TableCell>
                   <TableCell>
-                    <IconButton onClick={() => {handleDelete(document.id)}}>
+                    <IconButton disabled={onDelete} onClick={() => {handleDelete(document.id)}}>
                       <IconDelete />
                     </IconButton>
                   </TableCell>

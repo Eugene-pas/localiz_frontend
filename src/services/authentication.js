@@ -8,7 +8,7 @@ import jwt from 'jwt-decode';
 import { statusCode } from "../constants/statusCodes";
 import { store } from "../redux/store";
 import { userRoles } from '../constants/userRoles';
-import { HOME } from "../navigation/CONSTANTS"
+import { PROJECTS } from "../navigation/CONSTANTS"
 import { setStore } from "../redux/setStore"
 
 export function register(values, navigate) {
@@ -67,7 +67,7 @@ export function login(values, navigate) {
                 switch (role) {
                     case userRoles.USER:
                         setStore();                      
-                        navigate(HOME);
+                        navigate(PROJECTS);
                         break;
                     default:
                         errorMessage(

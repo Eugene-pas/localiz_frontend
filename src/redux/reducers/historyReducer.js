@@ -2,7 +2,8 @@ import { SET_HISTORY } from "../actions/history/types";
 
 const intialState = {
     documentId: 0,
-    documentName: ""
+    documentName: "",
+    isUpdate: true
 }
 
 const historyReducer = (state = intialState, action) => {

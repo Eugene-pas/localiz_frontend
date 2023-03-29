@@ -88,3 +88,27 @@ export function getHistoryRange(modal) {
             }
         )
 }
+
+export function translationDocument(model) {
+    return translateHistoryService
+        .translationDocument(model)
+        .then(
+            () => {
+                return true;
+            },
+            () => {
+                errorMessage(
+                    translateHistoryMessages.TRANSLATE_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(
+            (res) => {
+                console.error(res);
+                errorMessage(
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+}

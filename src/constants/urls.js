@@ -34,5 +34,6 @@ export const DOCUMENT_URLS = {
 export const HISTORY_URLS = {
     TRANSLATE: HISTORY_URL + "/translate",
     WRITE: HISTORY_URL + "/write",
-    GET_RANGE: HISTORY_URL + "/get-range"
+    GET_RANGE: HISTORY_URL + "/get-range",
+    TRANSLATE_DOCUMENT: HISTORY_URL + "/translate-document"
 };

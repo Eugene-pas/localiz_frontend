@@ -23,10 +23,12 @@ import { useSelector } from "react-redux";
 import moment from 'moment';
 
 export const HistoryRow = ({ update, history, ...rest }) => {
-    const documentId = useSelector(state => 
-        state.historyReducer.documentId);
+    const projectId = useSelector(state => 
+        state.documentReducer.projectId);
     const project = useSelector(state => 
-        state.projectReducer.projects.find(item => item.id === documentId));
+        state.projectReducer.projects.find(item => item.id === projectId));
+    const projectRTY = useSelector(state => 
+        state.projectReducer.projects);   
 
     const settingsRef = useRef(null);
     const [openAccountPopover, setOpenAccountPopover] = useState(false);

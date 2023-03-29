@@ -6,7 +6,8 @@ export const setHistory = (history) => {
             type: CONSTANTS.SET_HISTORY,
             payload: {
                 documentId: 0,
-                documentName: ""
+                documentName: "",
+                isUpdate: true
             }
         };
 

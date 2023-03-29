@@ -16,4 +16,8 @@ export default class translateHistoryService {
         &PaginationFilter.PageNumber=${model.pageNumber}
         &PaginationFilter.PageSize=${model.pageSize}`);
   }
+
+  static translationDocument(model) {
+    return instance.post(HISTORY_URLS.TRANSLATE_DOCUMENT, model);
+  }
 }
