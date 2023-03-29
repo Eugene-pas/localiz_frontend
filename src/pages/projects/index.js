@@ -4,6 +4,7 @@ import { ProjectCard } from '../../components/projects/project-card';
 import { DashboardLayout } from '../../components/dashboard/index';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { setProjectData } from '../../redux/setStore';
 
 const ProjectPage = () => {
   const projectReducer = useSelector(state => state.projectReducer);
@@ -12,6 +13,10 @@ const ProjectPage = () => {
   useEffect(() => {
     setProjects(projectReducer.projects);
   }, [projectReducer])
+
+  useEffect(() => {
+    setProjectData();
+  }, [])
 
   const hendleSearch = (data) => {
     setProjects(data);

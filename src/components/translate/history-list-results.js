@@ -46,6 +46,7 @@ const dataHistory = {
 
 export const HistoryListResults = ({ ...rest }) => {
   const documentId = useSelector(state => state.historyReducer.documentId);
+  const isHistoryUpdate =  useSelector(state => state.historyReducer.isUpdate);
   const [isUpdate, setIsUpdate] = useState(true);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(3);
@@ -62,7 +63,7 @@ export const HistoryListResults = ({ ...rest }) => {
     }
 
     fetchData();
-  }, [page, pageSize, isUpdate])
+  }, [page, pageSize, isUpdate, isHistoryUpdate])
 
   const handleNextPage = () => {
     setPage(page + 1);
@@ -71,6 +72,18 @@ export const HistoryListResults = ({ ...rest }) => {
   const handlePreviousPage = () => {
     setPage(page - 1);
   };
+
+  const handleKeyPressNextPage = (event) => {
+    if (event.key === 'ArrowRight' || event.key === 'Enter') {
+      setPage(page + 1);
+    }
+  }
+
+  const handleKeyPressPreviousPage = (event) => {
+    if (event.key === 'ArrowLeft' || event.key === 'Enter') {
+      setPage(page - 1);
+    }
+  }
 
   const handleSelect = (event) => {
     setPage(1);
@@ -150,12 +163,14 @@ export const HistoryListResults = ({ ...rest }) => {
             <IconButton
               disabled={!history.hasPreviousPage}
               onClick={handlePreviousPage}
+              onKeyUp={handleKeyPressPreviousPage}
             >
               <KeyboardArrowLeftIcon />
             </IconButton>
             <IconButton
               disabled={!history.hasNextPage}
               onClick={handleNextPage}
+              onKeyUp={handleKeyPressNextPage}
             >
               <KeyboardArrowRightIcon />
             </IconButton>

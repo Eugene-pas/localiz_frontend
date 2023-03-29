@@ -103,7 +103,7 @@ export const ProjectCard = ({ project, ...rest }) => {
             display: 'flex'
           }}
         >
-          <ClockIcon color="action" />
+          <ClockIcon sx={{pl: 1}} color="action" />
           <Typography
             color="textSecondary"
             display="inline"
@@ -120,7 +120,7 @@ export const ProjectCard = ({ project, ...rest }) => {
             display: 'flex'
           }}
         >
-          <IconButton sx={{ pl: 0 }} onClick={() => setOpenModal(true)}>
+          <IconButton onClick={() => setOpenModal(true)}>
             <UserAddIcon color="action" />
           </IconButton>
           <Typography

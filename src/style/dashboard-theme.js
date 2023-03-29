@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material';
+import "./my-button-focus.css"
 
 const theme = createTheme({
   breakpoints: {
@@ -13,7 +14,8 @@ const theme = createTheme({
   components: {
     MuiButton: {
       defaultProps: {
-        disableElevation: true
+        disableElevation: true,
+        focusVisibleClassName: 'my-button-focus',
       },
       styleOverrides: {
         root: {
@@ -38,6 +40,11 @@ const theme = createTheme({
           padding: '12px 16px'
         }
       }
+    },
+    MuiIconButton: {
+      defaultProps: {
+        focusVisibleClassName: 'my-iconButton-focus',
+      },
     },
     MuiButtonBase: {
       defaultProps: {

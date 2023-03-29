@@ -8,11 +8,18 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../assets/icons/search';
+import CircularProgress from '@mui/material/CircularProgress';
+import { green } from '@mui/material/colors';
 import { Arrow as ArrowIcon } from '../../assets/icons/arrow';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { download } from '../../services/document';
+import { translationDocument } from '../../services/translateHistory';
+import { useState } from 'react';
+import { setHistory } from '../../redux/actions/history';
 
 export const HistoryListToolbar = ({ documentName, search, ...props }) => {
+  const historyDispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const historyReducer = useSelector(state => state.historyReducer);
   const projectId = useSelector(state => state.documentReducer.projectId);
   const project = useSelector(state => state.projectReducer.projects.find(p => p.id === projectId));
@@ -22,6 +29,18 @@ export const HistoryListToolbar = ({ documentName, search, ...props }) => {
       documentId: historyReducer.documentId,
       documentName: historyReducer.documentName
     });
+  }
+
+  const hadleTranslate = async () => {
+    setLoading(true);
+    await translationDocument({
+      documentId: historyReducer.documentId,
+      from: project.fromTranslate.toLowerCase(),
+      to: project.toTranslate.toLowerCase()
+    });
+    setLoading(false);
+    historyReducer.isUpdate = !historyReducer.isUpdate;
+    historyDispatch(setHistory(historyReducer));
   }
 
   return (
@@ -70,7 +89,7 @@ export const HistoryListToolbar = ({ documentName, search, ...props }) => {
         >
           Translate
         </Typography>
-        <Box sx={{ m: 1 }}>
+        <Box sx={{ m: 1, display: "flex", gap: 1}}>
           <Button
             onClick={hadleDownload}
             type="button"
@@ -79,6 +98,26 @@ export const HistoryListToolbar = ({ documentName, search, ...props }) => {
             variant="contained"
             component="label">
             Get document
+          </Button>
+          <Button
+            disabled={loading}
+            onClick={hadleTranslate}
+            color="primary"
+            variant="contained"
+            component="label">
+            Translate Document
+            {loading && (
+            <CircularProgress
+            size={24}
+            sx={{
+              color: green[500],
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              marginTop: '-12px',
+              marginLeft: '-12px',
+            }}
+          />)}
           </Button>
         </Box>
       </Box>
