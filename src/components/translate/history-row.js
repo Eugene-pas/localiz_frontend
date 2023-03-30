@@ -10,8 +10,7 @@ import {
     IconButton,
     Collapse,
     TextField,
-    Tooltip,
-    Button
+    Tooltip
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -23,18 +22,17 @@ import { useSelector } from "react-redux";
 import moment from 'moment';
 
 export const HistoryRow = ({ update, history, ...rest }) => {
-    const projectId = useSelector(state => 
+    const projectId = useSelector(state =>
         state.documentReducer.projectId);
-    const project = useSelector(state => 
+    const project = useSelector(state =>
         state.projectReducer.projects.find(item => item.id === projectId));
-    const projectRTY = useSelector(state => 
-        state.projectReducer.projects);   
 
     const settingsRef = useRef(null);
     const [openAccountPopover, setOpenAccountPopover] = useState(false);
     const [open, setOpen] = useState(false);
     const [isCanSave, setIsCanSave] = useState(true);
     const [hint, setHint] = useState("I don't know how translate this text.");
+    const [historyText, setHistoryText] = useState("");
     const [defaultValue, setDefaultValue] = useState(history.translateText);
     const [translateData, setTranslate] = useState(
         (history.translateText ? history.translateText : ""));
@@ -44,6 +42,8 @@ export const HistoryRow = ({ update, history, ...rest }) => {
     }
 
     useEffect(() => {
+        setHistoryText(removeRequiredChar(history.text));
+        
         if (translateData === (history.translateText ? history.translateText : ""))
             setIsCanSave(true);
         else
@@ -55,7 +55,7 @@ export const HistoryRow = ({ update, history, ...rest }) => {
         await translate({
             id: history.id,
             documentId: history.documentId,
-            translateText: translateData,
+            translateText: addRequiredChar(translateData),
             version: ""
         })
         update();
@@ -64,12 +64,12 @@ export const HistoryRow = ({ update, history, ...rest }) => {
 
     const hendelSuggest = async () => {
         const resp = await translateAPI(
-            project.fromTranslate.toLowerCase(), 
-            project.toTranslate.toLowerCase(), 
-            history.text
-            );
+            project.fromTranslate.toLowerCase(),
+            project.toTranslate.toLowerCase(),
+            historyText
+        );
         console.log(resp.responseData.translatedText);
-        if(resp.responseData.translatedText)
+        if (resp.responseData.translatedText)
             setHint(resp.responseData.translatedText);
 
         setOpenAccountPopover(true)
@@ -78,6 +78,47 @@ export const HistoryRow = ({ update, history, ...rest }) => {
     const suggest = () => {
         setTranslate(hint);
         setDefaultValue(hint);
+    }
+
+    const removeRequiredChar = (data) => {
+        if(data === "" || data === null)
+            return data;
+
+        if (data.at(-1) === '"' && data.at(0) === '"') {
+            return data.slice(1, data.length - 1);      
+        } else if (data.at(-1) === ',' && data.at(0) === '"') {
+            return data.slice(1, data.length - 2);
+        } else if (data.at(-1) === '\r' && data.at(0) === '"') {
+            return data.slice(1, data.length - 2);
+        }
+
+        return data;
+    }
+
+    const addRequiredChar = (data) => {
+        if (data === "")
+            return data;
+
+        if (history.text.at(-1) === '"') {
+            const textT = data.split('');
+            textT.push('"');
+            textT.unshift('"');
+            return textT.join("");
+        }
+        else if (history.text.at(-1) === ',') {
+            const textT = data.split('');
+            textT.push('",');
+            textT.unshift('"');
+            return textT.join("");
+        }
+        else if (history.text.at(-1) === '\r') {
+            const textT = data.split('');
+            textT.push('"\r');
+            textT.unshift('"');
+            return textT.join("");
+        }
+
+        return data;
     }
 
     return (
@@ -118,18 +159,18 @@ export const HistoryRow = ({ update, history, ...rest }) => {
                             minWidth: '220px'
                         }}
                     >
-                       
-                       
-                            <Typography
-                            sx={{cursor: "pointer"}}
-                            ref={settingsRef} 
+
+
+                        <Typography
+                            sx={{ cursor: "pointer" }}
+                            ref={settingsRef}
                             onClick={hendelSuggest}
-                                color="textPrimary"
-                                variant="body1"
-                            >
-                                {history.text}
-                            </Typography>
-                        
+                            color="textPrimary"
+                            variant="body1"
+                        >
+                            {historyText}
+                        </Typography>
+
                         <TranslatePopover
                             suggest={suggest}
                             historyText={hint}
@@ -150,7 +191,7 @@ export const HistoryRow = ({ update, history, ...rest }) => {
                         <TextField
                             id="standard-multiline-static"
                             multiline
-                            defaultValue={defaultValue}
+                            defaultValue={removeRequiredChar(defaultValue)}
                             rows={2}
                             onChange={hendleTranslate}
                             variant="standard"
