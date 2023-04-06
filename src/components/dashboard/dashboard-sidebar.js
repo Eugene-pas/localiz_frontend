@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import InfoIcon from '@mui/icons-material/Info';
 import { ChartBar as ChartBarIcon } from '../../assets/icons/chart-bar';
 import { Cog as CogIcon } from '../../assets/icons/cog';
 import { Lock as LockIcon } from '../../assets/icons/lock';
@@ -10,7 +11,7 @@ import { User as UserIcon } from '../../assets/icons/user';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
-import { ACCOUNT, PROJECTS, SIGNIN, HOME } from '../../navigation/CONSTANTS';
+import { ACCOUNT, PROJECTS, SIGNIN, ABOUT } from '../../navigation/CONSTANTS';
 import { logoutUser } from '../../services/authentication';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,6 +35,11 @@ const items = [
     href: SIGNIN,
     icon: (<LockIcon fontSize="small" />),
     title: 'Login'
+  },
+  {
+    href: ABOUT,
+    icon: (<InfoIcon fontSize="small" />),
+    title: 'About'
   }
 ];
 

@@ -1,0 +1,22 @@
+.greetingAnim {
+    transform: rotate(30deg);
+    width: 50px;
+    display: block;
+    transform: rotate(0deg);
+    animation-name: greeting;
+    animation-duration: 1s;
+    animation-iteration-count: 20;
+    transform-origin: 80% 80%;
+  }
+  
+  @keyframes greeting {
+    0% {
+      transform: rotate(30deg);
+    }
+    50% {
+      transform: rotate(60deg);
+    }
+    100% {
+      transform: rotate(30deg);
+    }
+  }

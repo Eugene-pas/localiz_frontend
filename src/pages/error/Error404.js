@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import image from "../../assets/imgs/undraw_page_not_found_su7k.svg"
-import { HOME } from "../../navigation/CONSTANTS"
+import { ABOUT } from "../../navigation/CONSTANTS"
 import { styled } from '@mui/material/styles';
 
 const AdapTypography = styled(Typography)(({ theme }) => ({
@@ -67,7 +67,7 @@ function UserHome() {
                             />
                         </Box>
                         <Button
-                            onClick={() => {navigate(HOME)}}
+                            onClick={() => {navigate(ABOUT)}}
                             component="a"
                             startIcon={(<ArrowBackIcon fontSize="small" />)}
                             sx={{ mt: 3 }}

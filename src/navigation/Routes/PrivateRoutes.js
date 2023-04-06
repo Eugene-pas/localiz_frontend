@@ -1,17 +1,18 @@
-import { HOME, ACCOUNT, PROJECTS, DOCUMENTS, TRANSLATE } from "../CONSTANTS"
+import { ABOUT, ACCOUNT, PROJECTS, DOCUMENTS, TRANSLATE } from "../CONSTANTS"
 import { userRoles } from "../../constants/userRoles"
 import { DashboardLayout } from "../../components/dashboard/index"
 import AccountPage from "../../pages/account/index"
 import ProjectPage from "../../pages/projects/index"
 import DocumentsPage from "../../pages/documents/index"
 import TranslateHystoryPage from "../../pages/translate/index"
+import AboutPage from "../../pages/about"
 
 const PrivateRoutes = () => {
     return [
         {
-            href: HOME,
+            href: ABOUT,
             role: userRoles.USER,
-            element: <DashboardLayout children={"Welcome to Localiz"}/>
+            element: <AboutPage/>
         },
         {
             href: ACCOUNT,
