@@ -1,4 +1,4 @@
-import { SET_HISTORY } from "../actions/history/types";
+import { SET_CONTENT } from "../actions/content/types";
 
 const intialState = {
     documentId: 0,
@@ -6,9 +6,9 @@ const intialState = {
     isUpdate: true
 }
 
-const historyReducer = (state = intialState, action) => {
+const contentReducer = (state = intialState, action) => {
     switch (action.type) {
-        case SET_HISTORY: {
+        case SET_CONTENT: {
 
             return { ...action.payload };
         }
@@ -19,4 +19,4 @@ const historyReducer = (state = intialState, action) => {
     }
 }
 
-export default historyReducer;
+export default contentReducer;

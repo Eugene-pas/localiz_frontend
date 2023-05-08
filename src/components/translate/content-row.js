@@ -15,13 +15,13 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { translate } from "../../services/translateHistory";
+import { translate } from "../../services/translateContent";
 import TranslatePopover from "./translate-popover"
 import { translateAPI } from "../../api/configurations/translateAPIConf";
 import { useSelector } from "react-redux";
 import moment from 'moment';
 
-export const HistoryRow = ({ update, history, ...rest }) => {
+export const ContentRow = ({ update, content, ...rest }) => {
     const projectId = useSelector(state =>
         state.documentReducer.projectId);
     const project = useSelector(state =>
@@ -32,19 +32,19 @@ export const HistoryRow = ({ update, history, ...rest }) => {
     const [open, setOpen] = useState(false);
     const [isCanSave, setIsCanSave] = useState(true);
     const [hint, setHint] = useState("I don't know how translate this text.");
-    const [historyText, setHistoryText] = useState("");
-    const [defaultValue, setDefaultValue] = useState(history.translateText);
+    const [contentText, setContentText] = useState("");
+    const [defaultValue, setDefaultValue] = useState(content.translateText);
     const [translateData, setTranslate] = useState(
-        (history.translateText ? history.translateText : ""));
+        (content.translateText ? content.translateText : ""));
 
     const hendleTranslate = (event) => {
         setTranslate(event.target.value);
     }
 
     useEffect(() => {
-        setHistoryText(removeRequiredChar(history.text));
+        setContentText(removeRequiredChar(content.text));
         
-        if (translateData === (history.translateText ? history.translateText : ""))
+        if (translateData === (content.translateText ? content.translateText : ""))
             setIsCanSave(true);
         else
             setIsCanSave(false);
@@ -53,8 +53,8 @@ export const HistoryRow = ({ update, history, ...rest }) => {
     const hendleSave = async () => {
 
         await translate({
-            id: history.id,
-            documentId: history.documentId,
+            id: content.id,
+            documentId: content.documentId,
             translateText: addRequiredChar(translateData),
             version: ""
         })
@@ -66,7 +66,7 @@ export const HistoryRow = ({ update, history, ...rest }) => {
         const resp = await translateAPI(
             project.fromTranslate.toLowerCase(),
             project.toTranslate.toLowerCase(),
-            historyText
+            contentText
         );
         console.log(resp.responseData.translatedText);
         if (resp.responseData.translatedText)
@@ -99,19 +99,19 @@ export const HistoryRow = ({ update, history, ...rest }) => {
         if (data === "")
             return data;
 
-        if (history.text.at(-1) === '"') {
+        if (content.text.at(-1) === '"') {
             const textT = data.split('');
             textT.push('"');
             textT.unshift('"');
             return textT.join("");
         }
-        else if (history.text.at(-1) === ',') {
+        else if (content.text.at(-1) === ',') {
             const textT = data.split('');
             textT.push('",');
             textT.unshift('"');
             return textT.join("");
         }
-        else if (history.text.at(-1) === '\r') {
+        else if (content.text.at(-1) === '\r') {
             const textT = data.split('');
             textT.push('"\r');
             textT.unshift('"');
@@ -147,7 +147,7 @@ export const HistoryRow = ({ update, history, ...rest }) => {
                             color="textPrimary"
                             variant="body1"
                         >
-                            {history.number}
+                            {content.number}
                         </Typography>
                     </Box>
                 </TableCell>
@@ -168,12 +168,12 @@ export const HistoryRow = ({ update, history, ...rest }) => {
                             color="textPrimary"
                             variant="body1"
                         >
-                            {historyText}
+                            {contentText}
                         </Typography>
 
                         <TranslatePopover
                             suggest={suggest}
-                            historyText={hint}
+                            contentText={hint}
                             anchorEl={settingsRef.current}
                             open={openAccountPopover}
                             onClose={() => setOpenAccountPopover(false)}
@@ -231,25 +231,25 @@ export const HistoryRow = ({ update, history, ...rest }) => {
                                 <TableBody>
                                     <TableRow>
                                         <TableCell component="th" scope="row">
-                                            {moment.utc(history.date).format("DD.MM.yy")}
+                                            {moment.utc(content.date).format("DD.MM.yy")}
                                         </TableCell>
                                         <TableCell>
-                                            {history.userInfo ?
-                                                `${history.userInfo.name} ${history.userInfo.surname}`
+                                            {content.userInfo ?
+                                                `${content.userInfo.name} ${content.userInfo.surname}`
                                                 : "not translate"
                                             }
                                         </TableCell>
                                         <TableCell align="right">
                                             {
-                                                history.userInfo ?
-                                                    history.userInfo.email
+                                                content.userInfo ?
+                                                    content.userInfo.email
                                                     : "not translate"
                                             }
                                         </TableCell>
                                         <TableCell align="right">
                                             {
-                                                history.version ?
-                                                    history.version
+                                                content.version ?
+                                                    content.version
                                                     : "not translate"
                                             }
                                         </TableCell>

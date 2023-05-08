@@ -3,7 +3,7 @@ import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 const TranslatePopover = (props) => {
-  const {suggest ,historyText, anchorEl, onClose, open, ...other } = props;
+  const {suggest ,contentText, anchorEl, onClose, open, ...other } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const TranslatePopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          {historyText}
+          {contentText}
         </Typography>
       </Box>
       <MenuList

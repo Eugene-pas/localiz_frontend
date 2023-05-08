@@ -15,9 +15,9 @@ import AppAppBar from './modules/views/AppAppBar';
 import withRoot from './modules/withRoot';
 
 const HomeView = props => {
-    const history = useNavigate ();
+    const content = useNavigate ();
     const goTo = (path) => {
-        history.push(path || ROOT);
+        content.push(path || ROOT);
     }
     return (
         // <div>

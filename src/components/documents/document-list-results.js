@@ -16,7 +16,7 @@ import { TRANSLATE } from '../../navigation/CONSTANTS';
 import { Delete as IconDelete } from '@mui/icons-material';
 import { deleteDocument } from '../../services/document'
 import { setDocumentData } from '../../redux/setStore';
-import { setHistory } from '../../redux/actions/history';
+import { setContent } from '../../redux/actions/content';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
@@ -44,7 +44,7 @@ export const DocumentListResults = ({ documents, ...rest }) => {
   }
 
   const onRowClick = (doc) => {
-    dispatch(setHistory(
+    dispatch(setContent(
       {
         documentId: doc.id, 
         documentName: doc.name
