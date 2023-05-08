@@ -13,14 +13,14 @@ import {
   Select,
   FormControl
 } from '@mui/material';
-import { HistoryRow } from './history-row';
-import { getHistoryRange } from '../../services/translateHistory';
+import { ContentRow } from './content-row';
+import { getContentRange } from '../../services/translateContent';
 import { useSelector } from 'react-redux';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Box } from '@mui/system';
 
-const dataHistory = {
+const dataContent = {
   pageNumber: 0,
   totalPages: 0,
   totalItems: 0,
@@ -44,26 +44,26 @@ const dataHistory = {
   ]
 }
 
-export const HistoryListResults = ({ ...rest }) => {
-  const documentId = useSelector(state => state.historyReducer.documentId);
-  const isHistoryUpdate =  useSelector(state => state.historyReducer.isUpdate);
+export const ContentListResults = ({ ...rest }) => {
+  const documentId = useSelector(state => state.contentReducer.documentId);
+  const isContentUpdate =  useSelector(state => state.contentReducer.isUpdate);
   const [isUpdate, setIsUpdate] = useState(true);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(3);
-  const [history, setHistory] = useState(dataHistory)
+  const [content, setContent] = useState(dataContent)
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getHistoryRange({
+      const data = await getContentRange({
         documentId: documentId,
         pageNumber: page,
         pageSize: pageSize
       });
-      setHistory(data);
+      setContent(data);
     }
 
     fetchData();
-  }, [page, pageSize, isUpdate, isHistoryUpdate])
+  }, [page, pageSize, isUpdate, isContentUpdate])
 
   const handleNextPage = () => {
     setPage(page + 1);
@@ -113,9 +113,9 @@ export const HistoryListResults = ({ ...rest }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {history !== undefined && history.items !== undefined ?
-              history.items.map((item) => (
-                <HistoryRow key={item.id} history={item} update={update} />
+            {content !== undefined && content.items !== undefined ?
+              content.items.map((item) => (
+                <ContentRow key={item.id} content={item} update={update} />
               )) :
               <TableRow>
                 <TableCell height={"100vh"} colSpan={5} align="center">
@@ -125,7 +125,7 @@ export const HistoryListResults = ({ ...rest }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {history !== undefined && history.items !== undefined ?
+      {content !== undefined && content.items !== undefined ?
           <Box sx={{
             display: "flex",
             flexWrap: "wrap",
@@ -158,17 +158,17 @@ export const HistoryListResults = ({ ...rest }) => {
               variant="body1"
               fontSize={14}
             >
-              {`${page}-${history.totalPages} of ${history.totalItems}`}
+              {`${page}-${content.totalPages} of ${content.totalItems}`}
             </Typography>
             <IconButton
-              disabled={!history.hasPreviousPage}
+              disabled={!content.hasPreviousPage}
               onClick={handlePreviousPage}
               onKeyUp={handleKeyPressPreviousPage}
             >
               <KeyboardArrowLeftIcon />
             </IconButton>
             <IconButton
-              disabled={!history.hasNextPage}
+              disabled={!content.hasNextPage}
               onClick={handleNextPage}
               onKeyUp={handleKeyPressNextPage}
             >

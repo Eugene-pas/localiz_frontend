@@ -1,11 +1,11 @@
-import { translateHistoryMessages } from "../constants/messages/translateHistory";
+import { translateContentMessages } from "../constants/messages/translateContent";
 import { errorMessage } from "./alerts";
 import { generalMessages } from "../constants/messages/general";
-import translateHistoryService from "../api/translateHistory"; 
+import translateContentService from "../api/translateContent"; 
 
-export function writeHistory(model) {
-    return translateHistoryService
-        .writeHistory(model)
+export function writeContent(model) {
+    return translateContentService
+        .writeContent(model)
         .then(
             () => {
                 return true;
@@ -14,19 +14,19 @@ export function writeHistory(model) {
                 if (response.data !== null) {
                     if (response.data.split('').at(-1) !== "!")
                         errorMessage(
-                            translateHistoryMessages.WRITE_HISTORY_FAILED,
+                            translateContentMessages.WRITE_HISTORY_FAILED,
                             response.data + '!'
                         );
                     else {
                         errorMessage(
-                            translateHistoryMessages.WRITE_HISTORY_FAILED,
+                            translateContentMessages.WRITE_HISTORY_FAILED,
                             response.data
                         );
                     }
                 }
                 else
                     errorMessage(
-                        translateHistoryMessages.WRITE_HISTORY_FAILED,
+                        translateContentMessages.WRITE_HISTORY_FAILED,
                         generalMessages.SOMETHING_WENT_WRONG
                     );
             }
@@ -42,7 +42,7 @@ export function writeHistory(model) {
 }
 
 export function translate(model) {
-    return translateHistoryService
+    return translateContentService
         .translate(model)
         .then(
             () => {
@@ -50,7 +50,7 @@ export function translate(model) {
             },
             () => {
                 errorMessage(
-                    translateHistoryMessages.TRANSLATE_FAILED,
+                    translateContentMessages.TRANSLATE_FAILED,
                     generalMessages.SOMETHING_WENT_WRONG
                 );
             }
@@ -65,16 +65,16 @@ export function translate(model) {
         )
 }
 
-export function getHistoryRange(modal) {
-    return translateHistoryService
-        .getHistoryRange(modal)
+export function getContentRange(modal) {
+    return translateContentService
+        .getContentRange(modal)
         .then(
             (res) => {
                 return res.data;
             },
             () => {
                 errorMessage(
-                    translateHistoryMessages.TRANSLATE_FAILED,
+                    translateContentMessages.TRANSLATE_FAILED,
                     generalMessages.SOMETHING_WENT_WRONG
                 );
             }
@@ -90,7 +90,7 @@ export function getHistoryRange(modal) {
 }
 
 export function translationDocument(model) {
-    return translateHistoryService
+    return translateContentService
         .translationDocument(model)
         .then(
             () => {
@@ -98,7 +98,7 @@ export function translationDocument(model) {
             },
             () => {
                 errorMessage(
-                    translateHistoryMessages.TRANSLATE_FAILED,
+                    translateContentMessages.TRANSLATE_FAILED,
                     generalMessages.SOMETHING_WENT_WRONG
                 );
             }

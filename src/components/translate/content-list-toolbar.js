@@ -13,34 +13,34 @@ import { green } from '@mui/material/colors';
 import { Arrow as ArrowIcon } from '../../assets/icons/arrow';
 import { useDispatch, useSelector } from 'react-redux';
 import { download } from '../../services/document';
-import { translationDocument } from '../../services/translateHistory';
+import { translationDocument } from '../../services/translateContent';
 import { useState } from 'react';
-import { setHistory } from '../../redux/actions/history';
+import { setContent } from '../../redux/actions/content';
 
-export const HistoryListToolbar = ({ documentName, search, ...props }) => {
-  const historyDispatch = useDispatch();
+export const ContentListToolbar = ({ documentName, search, ...props }) => {
+  const contentDispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const historyReducer = useSelector(state => state.historyReducer);
+  const contentReducer = useSelector(state => state.contentReducer);
   const projectId = useSelector(state => state.documentReducer.projectId);
   const project = useSelector(state => state.projectReducer.projects.find(p => p.id === projectId));
 
   const hadleDownload = async () => {
     await download({
-      documentId: historyReducer.documentId,
-      documentName: historyReducer.documentName
+      documentId: contentReducer.documentId,
+      documentName: contentReducer.documentName
     });
   }
 
   const hadleTranslate = async () => {
     setLoading(true);
     await translationDocument({
-      documentId: historyReducer.documentId,
+      documentId: contentReducer.documentId,
       from: project.fromTranslate.toLowerCase(),
       to: project.toTranslate.toLowerCase()
     });
     setLoading(false);
-    historyReducer.isUpdate = !historyReducer.isUpdate;
-    historyDispatch(setHistory(historyReducer));
+    contentReducer.isUpdate = !contentReducer.isUpdate;
+    contentDispatch(setContent(contentReducer));
   }
 
   return (
@@ -140,7 +140,7 @@ export const HistoryListToolbar = ({ documentName, search, ...props }) => {
                     </InputAdornment>
                   )
                 }}
-                placeholder="Search history"
+                placeholder="Search content"
                 variant="outlined"
               />
             </Box>

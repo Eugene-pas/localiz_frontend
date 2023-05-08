@@ -2,7 +2,8 @@ export const AUTHENTICATION_URL = "/Authentication";
 export const USER_URL = "/Users";
 export const PROJECT_URL = "/Project";
 export const DOCUMENT_URL = "/Document";
-export const HISTORY_URL = "/History";
+export const CONTENT_URL = "/Content";
+export const HISTORY_URL = "/Content";
 
 export const AUTHENTICATION_URLS = {
     REGISTRATION: AUTHENTICATION_URL + "/register",
@@ -31,9 +32,13 @@ export const DOCUMENT_URLS = {
     DOWNLOAD: DOCUMENT_URL + "/download"
 };
 
+export const CONTENT_URLS = {
+    TRANSLATE: CONTENT_URL + "/translate",
+    WRITE: CONTENT_URL + "/write",
+    GET_RANGE: CONTENT_URL + "/get-range",
+    TRANSLATE_DOCUMENT: CONTENT_URL + "/translate-document"
+};
+
 export const HISTORY_URLS = {
-    TRANSLATE: HISTORY_URL + "/translate",
-    WRITE: HISTORY_URL + "/write",
-    GET_RANGE: HISTORY_URL + "/get-range",
-    TRANSLATE_DOCUMENT: HISTORY_URL + "/translate-document"
+    GET_RANGE: HISTORY_URL + "/get-range" 
 };

@@ -1,11 +1,11 @@
 import { Box, Container } from '@mui/material';
-import { HistoryListResults } from '../../components/translate/history-list-results';
-import { HistoryListToolbar } from '../../components/translate/history-list-toolbar';
+import { ContentListResults } from '../../components/translate/content-list-results';
+import { ContentListToolbar } from '../../components/translate/content-list-toolbar';
 import { DashboardLayout } from '../../components/dashboard/index';
 import { useSelector } from 'react-redux';
 
 const TranslateHystoryPage = () => {
-    const documentName = useSelector(state => state.historyReducer.documentName);
+    const documentName = useSelector(state => state.contentReducer.documentName);
 
     return (
         <DashboardLayout>
@@ -17,9 +17,9 @@ const TranslateHystoryPage = () => {
                 }}
             >
                 <Container maxWidth={false}>
-                    <HistoryListToolbar documentName={documentName} />
+                    <ContentListToolbar documentName={documentName} />
                     <Box sx={{ mt: 3 }}>
-                        <HistoryListResults />
+                        <ContentListResults />
                     </Box>
                 </Container>
             </Box>

@@ -1,9 +1,9 @@
 import * as CONSTANTS from "./types";
 
-export const setHistory = (history) => {
-    if (!history)
+export const setContent = (content) => {
+    if (!content)
         return {
-            type: CONSTANTS.SET_HISTORY,
+            type: CONSTANTS.SET_CONTENT,
             payload: {
                 documentId: 0,
                 documentName: "",
@@ -12,7 +12,7 @@ export const setHistory = (history) => {
         };
 
     return {
-        type: CONSTANTS.SET_HISTORY,
-        payload: history
+        type: CONSTANTS.SET_CONTENT,
+        payload: content
     };
 }
