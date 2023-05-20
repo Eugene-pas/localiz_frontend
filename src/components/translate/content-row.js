@@ -12,10 +12,12 @@ import {
     TextField,
     Tooltip
 } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { translate } from "../../services/translateContent";
+import { getHistoryRange } from "../../services/history";
 import TranslatePopover from "./translate-popover"
 import { translateAPI } from "../../api/configurations/translateAPIConf";
 import { useSelector } from "react-redux";
@@ -34,6 +36,16 @@ export const ContentRow = ({ update, content, ...rest }) => {
     const [hint, setHint] = useState("I don't know how translate this text.");
     const [contentText, setContentText] = useState("");
     const [defaultValue, setDefaultValue] = useState(content.translateText);
+    const [history, setHistory] = useState([{
+        translateText: content.translateText,
+        date: content.date,
+        version: content.version,
+        userInfo: {
+            name: (content.userInfo ? content.userInfo.name : null),
+            surname: (content.userInfo ? content.userInfo.surname : null),
+            email: (content.userInfo ? content.userInfo.email : null)
+        }
+    }]);
     const [translateData, setTranslate] = useState(
         (content.translateText ? content.translateText : ""));
 
@@ -43,7 +55,7 @@ export const ContentRow = ({ update, content, ...rest }) => {
 
     useEffect(() => {
         setContentText(removeRequiredChar(content.text));
-        
+
         if (translateData === (content.translateText ? content.translateText : ""))
             setIsCanSave(true);
         else
@@ -81,11 +93,11 @@ export const ContentRow = ({ update, content, ...rest }) => {
     }
 
     const removeRequiredChar = (data) => {
-        if(data === "" || data === null)
+        if (data === "" || data === null)
             return data;
 
         if (data.at(-1) === '"' && data.at(0) === '"') {
-            return data.slice(1, data.length - 1);      
+            return data.slice(1, data.length - 1);
         } else if (data.at(-1) === ',' && data.at(0) === '"') {
             return data.slice(1, data.length - 2);
         } else if (data.at(-1) === '\r' && data.at(0) === '"') {
@@ -121,6 +133,16 @@ export const ContentRow = ({ update, content, ...rest }) => {
         return data;
     }
 
+    const hendelHistory = async () => {
+        const histories = await getHistoryRange({
+            contentId: content.id,
+            pageSize: 1000,
+            pageNumber: 1
+        });
+        setHistory(histories.items)
+        setOpen(!open);
+    }
+
     return (
         <>
             <TableRow
@@ -131,7 +153,7 @@ export const ContentRow = ({ update, content, ...rest }) => {
                     <IconButton
                         aria-label="expand row"
                         size="small"
-                        onClick={() => setOpen(!open)}
+                        onClick={hendelHistory}
                     >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
@@ -222,6 +244,7 @@ export const ContentRow = ({ update, content, ...rest }) => {
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
+                                        <TableCell>Translete text</TableCell>
                                         <TableCell>Date</TableCell>
                                         <TableCell>Interpreter</TableCell>
                                         <TableCell align="right">Email</TableCell>
@@ -229,31 +252,43 @@ export const ContentRow = ({ update, content, ...rest }) => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <TableRow>
-                                        <TableCell component="th" scope="row">
-                                            {moment.utc(content.date).format("DD.MM.yy")}
-                                        </TableCell>
-                                        <TableCell>
-                                            {content.userInfo ?
-                                                `${content.userInfo.name} ${content.userInfo.surname}`
-                                                : "not translate"
-                                            }
-                                        </TableCell>
-                                        <TableCell align="right">
-                                            {
-                                                content.userInfo ?
-                                                    content.userInfo.email
+                                    {history ? history.sort((b, a) => new Date(a.date) - new Date(b.date)).map((item, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>
+                                                {item.translateText}
+                                            </TableCell>
+                                            <TableCell component="th" scope="row">
+                                                {moment.utc(item.date).format("HH:mm DD.MM.yy")}
+                                            </TableCell>
+                                            <TableCell>
+                                                {item.userInfo ?
+                                                    `${item.userInfo.name} ${item.userInfo.surname}`
                                                     : "not translate"
-                                            }
-                                        </TableCell>
-                                        <TableCell align="right">
-                                            {
-                                                content.version ?
-                                                    content.version
-                                                    : "not translate"
-                                            }
-                                        </TableCell>
-                                    </TableRow>
+                                                }
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                {
+                                                    item.userInfo ?
+                                                        item.userInfo.email
+                                                        : "not translate"
+                                                }
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                {
+                                                    item.version ?
+                                                        content.version
+                                                        : "not translate"
+                                                }
+                                            </TableCell>
+                                        </TableRow>))
+                                        :
+                                        <TableRow >
+                                            {Array(5).fill().map((_,index) => ( 
+                                            <TableCell key={index}>
+                                                <Skeleton />
+                                            </TableCell>))}
+                                        </TableRow>}
+
                                 </TableBody>
                             </Table>
                         </Box>
