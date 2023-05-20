@@ -3,7 +3,7 @@ export const USER_URL = "/Users";
 export const PROJECT_URL = "/Project";
 export const DOCUMENT_URL = "/Document";
 export const CONTENT_URL = "/Content";
-export const HISTORY_URL = "/Content";
+export const HISTORY_URL = "/History";
 
 export const AUTHENTICATION_URLS = {
     REGISTRATION: AUTHENTICATION_URL + "/register",
