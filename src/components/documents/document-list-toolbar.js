@@ -10,9 +10,11 @@ import {
 import { Search as SearchIcon } from '../../assets/icons/search';
 import { addDocumentToProject } from '../../services/document';
 import { setDocumentData } from '../../redux/setStore';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 export const DocumentListToolbar = ({search ,projectId ,projectName, ...props}) => {
+  const { t } = useTranslation();
   const documents = useSelector(state => state.documentReducer.documents)
 
   const hendleSearch = (event) => {
@@ -22,7 +24,7 @@ export const DocumentListToolbar = ({search ,projectId ,projectName, ...props}) 
         data.push(documents[i])
     }
     search(data)
-    if(event.target.value == "")
+    if(event.target.value === "")
       search(documents)
   }
 
@@ -61,7 +63,7 @@ export const DocumentListToolbar = ({search ,projectId ,projectName, ...props}) 
           sx={{ m: 1 }}
           variant="h5"
         >
-          Documents
+          {t("documents")}
         </Typography>
         <Box sx={{ m: 1 }}>
           <Button
@@ -70,7 +72,7 @@ export const DocumentListToolbar = ({search ,projectId ,projectName, ...props}) 
             color="secondary"
             variant="contained"
             component="label">
-            Add Document
+            {t("addDocument")}
             <input
               hidden
               accept=".json"
@@ -99,7 +101,7 @@ export const DocumentListToolbar = ({search ,projectId ,projectName, ...props}) 
                     </InputAdornment>
                   )
                 }}
-                placeholder="Search document"
+                placeholder={t("searchDocument")}
                 variant="outlined"
               />
             </Box>

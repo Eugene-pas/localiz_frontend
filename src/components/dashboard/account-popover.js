@@ -4,12 +4,14 @@ import { logoutUser } from '../../services/authentication'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const AccountPopover = (props) => {
   const { anchorEl, onClose, open, ...other } = props;
   const navigate = useNavigate();
   const profileReducer = useSelector(state => state.profileReducer)
   const [userName, setUserName] = useState(profileReducer.name);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setUserName(profileReducer);
@@ -59,7 +61,7 @@ const AccountPopover = (props) => {
         }}
       >
         <MenuItem onClick={() => { logoutUser(navigate) }}>
-          Sign out
+          {t("signOut")}
         </MenuItem>
       </MenuList>
     </Popover>

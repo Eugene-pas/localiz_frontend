@@ -10,6 +10,7 @@ import {
   Typography
 } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const user = {
   avatar: '/static/avatars/m3.png',
@@ -19,6 +20,7 @@ const user = {
 export const AccountProfile = (props) => {
   const profileReducer = useSelector(state => state.profileReducer);
   const [profile, setProfiles] = useState(profileReducer);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setProfiles(profileReducer);
@@ -59,7 +61,7 @@ export const AccountProfile = (props) => {
           disabled={true}
           variant="text"
         >
-          Change picture
+          {t("accountProfile.changePicture")}
         </Button>
       </CardActions>
     </Card>

@@ -12,6 +12,7 @@ import {
 import { getUserProfileInfo, editUserInfo } from '../../services/users'
 import { useDispatch, useSelector } from 'react-redux';
 import {setProfile} from '../../redux/actions/auth/index'
+import { useTranslation } from 'react-i18next';
 
 export const AccountProfileDetails = (props) => {
   const profileModal = {
@@ -24,6 +25,7 @@ export const AccountProfileDetails = (props) => {
   const [isChange, setIsChange] = useState(true);
   const [profile, setProfiles] = useState(profileReducer);
   const [values, setValues] = useState(profileModal);
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function FetchData() {
@@ -69,8 +71,8 @@ export const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader={t("accountProfile.subheader")}
+          title={t("accountProfile.title")}
         />
         <Divider />
         <CardContent>
@@ -85,8 +87,8 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
+                helperText={t("accountProfile.helperFirstName")}
+                label={t("firstName")}
                 name="name"
                 onChange={handleChange}
                 required
@@ -101,7 +103,7 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Last name"
+                label={t("lastName")}
                 name="surname"
                 onChange={handleChange}
                 required
@@ -116,7 +118,7 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Email Address"
+                label={t("email")}
                 name="email"
                 onChange={handleChange}
                 required
@@ -140,7 +142,7 @@ export const AccountProfileDetails = (props) => {
             variant="contained"
             onClick={async () => {await EditProfile()}}
           >
-            Save details
+            {t("accountProfile.save")}
           </Button>
         </Box>
       </Card>

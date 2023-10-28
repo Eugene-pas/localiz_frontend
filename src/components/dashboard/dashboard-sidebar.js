@@ -3,48 +3,41 @@ import PropTypes from 'prop-types';
 import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import InfoIcon from '@mui/icons-material/Info';
-import { ChartBar as ChartBarIcon } from '../../assets/icons/chart-bar';
-import { Cog as CogIcon } from '../../assets/icons/cog';
-import { Lock as LockIcon } from '../../assets/icons/lock';
 import { Selector as SelectorIcon } from '../../assets/icons/selector';
 import { User as UserIcon } from '../../assets/icons/user';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
-import { ACCOUNT, PROJECTS, SIGNIN, ABOUT } from '../../navigation/CONSTANTS';
+import { ACCOUNT, PROJECTS, ABOUT } from '../../navigation/CONSTANTS';
 import { logoutUser } from '../../services/authentication';
 import { useNavigate } from 'react-router-dom';
-
-const items = [
-  // {
-  //   href: HOME,
-  //   icon: (<ChartBarIcon fontSize="small" />),
-  //   title: 'Dashboard'
-  // },
-  {
-    href: PROJECTS,
-    icon: (<ListAltIcon fontSize="small" />),
-    title: 'Projects'
-  },
-  {
-    href: ACCOUNT,
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
-  },
-  {
-    href: SIGNIN,
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
-    href: ABOUT,
-    icon: (<InfoIcon fontSize="small" />),
-    title: 'About'
-  }
-];
+import { useTranslation } from 'react-i18next';
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
+  const { t } = useTranslation();
+  const items = [
+    // {
+    //   href: HOME,
+    //   icon: (<ChartBarIcon fontSize="small" />),
+    //   title: 'Dashboard'
+    // },
+    {
+      href: PROJECTS,
+      icon: (<ListAltIcon fontSize="small" />),
+      title: t("dbSlidebar.projects")
+    },
+    {
+      href: ACCOUNT,
+      icon: (<UserIcon fontSize="small" />),
+      title: t("dbSlidebar.account")
+    },
+    {
+      href: ABOUT,
+      icon: (<InfoIcon fontSize="small" />),
+      title: t("dbSlidebar.about")
+    }
+  ];
   const navigate = useNavigate();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
@@ -97,13 +90,13 @@ export const DashboardSidebar = (props) => {
                   color="inherit"
                   variant="subtitle1"
                 >
-                  Localiz Inc
+                  {t("dbSlidebar.inc")}
                 </Typography>
                 <Typography
                   color="neutral.400"
                   variant="body2"
                 >
-                  Your tier
+                  {t("dbSlidebar.yourtier")}
                   {' '}
                   : Premium
                 </Typography>
@@ -161,7 +154,7 @@ export const DashboardSidebar = (props) => {
             variant="contained"
             onClick={() => {logoutUser(navigate)}}
           >
-            Log out
+            {t("logout")}
           </Button>
         </Box>
       </Box>

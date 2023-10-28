@@ -16,6 +16,7 @@ import { createProject } from '../../services/projects'
 import { setProjectData } from '../../redux/setStore'
 import { addDocumentToProject } from '../../services/document';
 import { setDocumentData } from '../../redux/setStore';
+import { useTranslation } from 'react-i18next';
 import languages from '../../constants/languages';
 
 const BoxModal = styled(Box)(({ theme }) => ({
@@ -47,6 +48,7 @@ const ProjectCreateModal = (props) => {
   const [description, setDescription] = useState("");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const { t } = useTranslation();
   const [files, setFiles] = useState([]);
 
   const [nameError, setNameError] = useState(false);
@@ -134,7 +136,7 @@ const ProjectCreateModal = (props) => {
           alignItems: "center"
         }}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Create project
+            {t("projectCreate.head")}
           </Typography>
           <IconButton onClick={() => { closeModal() }}>
             <CrossIcon />
@@ -155,13 +157,13 @@ const ProjectCreateModal = (props) => {
             <TextField
               type={"text"}
               sx={{ width: "100%" }}
-              label="Name"
+              label={t("name")}
               variant="standard"
               value={name}
               onChange={handleNameChange}
               required
               error={nameError}
-              helperText={nameError ? 'This field is required' : ''}
+              helperText={nameError ? t("projectCreate.fildRequired") : ''}
             />
           </Grid>
           <Grid
@@ -174,12 +176,12 @@ const ProjectCreateModal = (props) => {
               sx={{ width: "100%" }}
               multiline
               value={description}
-              label="Description"
+              label={t("description")}
               variant="standard"
               onChange={handleDescriptionChange}
               required
               error={descriptionError}
-              helperText={descriptionError ? 'This field is required' : ''}
+              helperText={descriptionError ? t("projectCreate.fildRequired") : ''}
             />
           </Grid>
           <Grid
@@ -195,11 +197,11 @@ const ProjectCreateModal = (props) => {
                 <TextField {...params}
                   variant="standard"
                   value={from}
-                  label="From"
+                  label={t("projectCreate.from")}
                   required
                   error={fromError}
-                  helperText={descriptionError ? 'This field is required'
-                    : 'Select the original language'}
+                  helperText={descriptionError ? t("projectCreate.fildRequired")
+                    : t("projectCreate.selectOriginalL")}
                 />}
             />
           </Grid>
@@ -215,12 +217,12 @@ const ProjectCreateModal = (props) => {
               renderInput={(params) =>
                 <TextField {...params}
                   variant="standard"
-                  label="To"
+                  label={t("projectCreate.to")}
                   value={to}
                   required
                   error={toError}
-                  helperText={descriptionError ? 'This field is required'
-                    : 'Select the translation language'}
+                  helperText={descriptionError ? t("projectCreate.fildRequired")
+                    : t("projectCreate.selectTranslationL")}
                 />}
             />
           </Grid>
@@ -236,7 +238,7 @@ const ProjectCreateModal = (props) => {
             color="primary"
             variant="contained"
           >
-            Cerate
+            {t("cerate")}
           </Button>
         </Box>
       </BoxModal>

@@ -1,13 +1,8 @@
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  TextField,
-  InputAdornment,
-  SvgIcon, Typography
+  Typography
 } from '@mui/material';
-import { Search as SearchIcon } from '../../assets/icons/search';
 import CircularProgress from '@mui/material/CircularProgress';
 import { green } from '@mui/material/colors';
 import { Arrow as ArrowIcon } from '../../assets/icons/arrow';
@@ -16,6 +11,7 @@ import { download } from '../../services/document';
 import { translationDocument } from '../../services/translateContent';
 import { useState } from 'react';
 import { setContent } from '../../redux/actions/content';
+import { useTranslation } from 'react-i18next';
 
 export const ContentListToolbar = ({ documentName, search, ...props }) => {
   const contentDispatch = useDispatch();
@@ -23,6 +19,7 @@ export const ContentListToolbar = ({ documentName, search, ...props }) => {
   const contentReducer = useSelector(state => state.contentReducer);
   const projectId = useSelector(state => state.documentReducer.projectId);
   const project = useSelector(state => state.projectReducer.projects.find(p => p.id === projectId));
+  const { t } = useTranslation();
 
   const hadleDownload = async () => {
     await download({
@@ -87,7 +84,7 @@ export const ContentListToolbar = ({ documentName, search, ...props }) => {
           sx={{ m: 1 }}
           variant="h5"
         >
-          Translate
+          {t("translate")}
         </Typography>
         <Box sx={{ m: 1, display: "flex", gap: 1}}>
           <Button
@@ -97,7 +94,7 @@ export const ContentListToolbar = ({ documentName, search, ...props }) => {
             color="secondary"
             variant="contained"
             component="label">
-            Get document
+            {t("getDocument")}
           </Button>
           <Button
             disabled={loading}
@@ -105,7 +102,7 @@ export const ContentListToolbar = ({ documentName, search, ...props }) => {
             color="primary"
             variant="contained"
             component="label">
-            Translate Document
+            {t("translateDocument")}
             {loading && (
             <CircularProgress
             size={24}
@@ -121,32 +118,6 @@ export const ContentListToolbar = ({ documentName, search, ...props }) => {
           </Button>
         </Box>
       </Box>
-      {/* <Box sx={{ mt: 3 }}>
-        <Card>
-          <CardContent>
-            <Box sx={{ maxWidth: 500 }}>
-              <TextField
-                onChange={hendleSearch}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SvgIcon
-                        color="action"
-                        fontSize="small"
-                      >
-                        <SearchIcon />
-                      </SvgIcon>
-                    </InputAdornment>
-                  )
-                }}
-                placeholder="Search content"
-                variant="outlined"
-              />
-            </Box>
-          </CardContent>
-        </Card>
-      </Box> */}
     </Box>
   );
 }

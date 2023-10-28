@@ -14,13 +14,15 @@ import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
 import { register } from "../../services/authentication"
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 function SignUp() {
   const [sent, setSent] = React.useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const validate = (values) => {
-    const errors = required(['firstName', 'lastName', 'email', 'password'], values);
+    const errors = required(['surname', 'name', 'email', 'password'], values);
 
     if (!errors.email) {
       const emailError = email(values.email);
@@ -33,8 +35,9 @@ function SignUp() {
   };
 
   const handleSubmit = (res) => {
-    register(res, navigate);
+    console.log("reg--")
     setSent(true);
+    register(res, navigate);
   };
 
   return (
@@ -43,11 +46,11 @@ function SignUp() {
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">
-            Sign Up
+            {t("signUn.signUn")}
           </Typography>
           <Typography variant="body2" align="center">
             <Link href="/sign-in/" underline="always">
-              Already have an account?
+            {t("signUn.alreadyAccount")}
             </Link>
           </Typography>
         </React.Fragment>
@@ -57,7 +60,11 @@ function SignUp() {
           validate={validate}
         >
           {({ handleSubmit: handleSubmit2, submitting }) => (
-            <Box component="form" onSubmit={handleSubmit2} noValidate sx={{ mt: 6 }}>
+            <Box 
+            component="form" 
+            onSubmit={handleSubmit2} 
+            noValidate 
+            sx={{ mt: 6 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <Field
@@ -66,8 +73,8 @@ function SignUp() {
                     disabled={submitting || sent}
                     autoComplete="given-name"
                     fullWidth
-                    label="First name"
-                    name="firstName"
+                    label={t("firstName")}
+                    name="name"
                     required
                   />
                 </Grid>
@@ -77,8 +84,8 @@ function SignUp() {
                     disabled={submitting || sent}
                     autoComplete="family-name"
                     fullWidth
-                    label="Last name"
-                    name="lastName"
+                    label={t("lastName")}
+                    name="surname"
                     required
                   />
                 </Grid>
@@ -88,7 +95,7 @@ function SignUp() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
-                label="Email"
+                label={t("email")}
                 margin="normal"
                 name="email"
                 required
@@ -100,7 +107,7 @@ function SignUp() {
                 required
                 name="password"
                 autoComplete="new-password"
-                label="Password"
+                label={t("password")}
                 type="password"
                 margin="normal"
               />
@@ -118,8 +125,17 @@ function SignUp() {
                 disabled={submitting || sent}
                 color="secondary"
                 fullWidth
+                // onClick={() => {
+                //   setSent(true);
+                //   register({
+                //       name: "Tttf",
+                //       surname: "Tfty",
+                //       email: "ftyf",
+                //       password: "Password"
+                //   }, navigate);
+                // }}
               >
-                {submitting || sent ? 'In progress…' : 'Sign Up'}
+                {submitting || sent ? t("inProgress") :  t("signUn.signUn")}
               </FormButton>
             </Box>
           )}

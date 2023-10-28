@@ -15,13 +15,29 @@ import {
 import Skeleton from '@mui/material/Skeleton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import { translate } from "../../services/translateContent";
 import { getHistoryRange } from "../../services/history";
 import TranslatePopover from "./translate-popover"
 import { translateAPI } from "../../api/configurations/translateAPIConf";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import moment from 'moment';
+
+const removeRequiredChar = (data) => {
+    if (data === "" || data === null)
+        return data;
+
+    if (data.at(-1) === '"' && data.at(0) === '"') {
+        return data.slice(1, data.length - 1);
+    } else if (data.at(-1) === ',' && data.at(0) === '"') {
+        return data.slice(1, data.length - 2);
+    } else if (data.at(-1) === '\r' && data.at(0) === '"') {
+        return data.slice(1, data.length - 2);
+    }
+
+    return data;
+}
 
 export const ContentRow = ({ update, content, ...rest }) => {
     const projectId = useSelector(state =>
@@ -32,8 +48,9 @@ export const ContentRow = ({ update, content, ...rest }) => {
     const settingsRef = useRef(null);
     const [openAccountPopover, setOpenAccountPopover] = useState(false);
     const [open, setOpen] = useState(false);
+    const { t } = useTranslation();
     const [isCanSave, setIsCanSave] = useState(true);
-    const [hint, setHint] = useState("I don't know how translate this text.");
+    const [hint, setHint] = useState(t("contentRow.notTranslate"));
     const [contentText, setContentText] = useState("");
     const [defaultValue, setDefaultValue] = useState(content.translateText);
     const [history, setHistory] = useState([{
@@ -47,16 +64,18 @@ export const ContentRow = ({ update, content, ...rest }) => {
         }
     }]);
     const [translateData, setTranslate] = useState(
-        (content.translateText ? content.translateText : ""));
+        (content.translateText ? removeRequiredChar(content.translateText) : ""));
 
     const hendleTranslate = (event) => {
         setTranslate(event.target.value);
+        if(event.target.value === "")
+        setIsCanSave(true);
     }
 
     useEffect(() => {
         setContentText(removeRequiredChar(content.text));
 
-        if (translateData === (content.translateText ? content.translateText : ""))
+        if (addRequiredChar(translateData) === (content.translateText ? content.translateText : ""))
             setIsCanSave(true);
         else
             setIsCanSave(false);
@@ -90,21 +109,6 @@ export const ContentRow = ({ update, content, ...rest }) => {
     const suggest = () => {
         setTranslate(hint);
         setDefaultValue(hint);
-    }
-
-    const removeRequiredChar = (data) => {
-        if (data === "" || data === null)
-            return data;
-
-        if (data.at(-1) === '"' && data.at(0) === '"') {
-            return data.slice(1, data.length - 1);
-        } else if (data.at(-1) === ',' && data.at(0) === '"') {
-            return data.slice(1, data.length - 2);
-        } else if (data.at(-1) === '\r' && data.at(0) === '"') {
-            return data.slice(1, data.length - 2);
-        }
-
-        return data;
     }
 
     const addRequiredChar = (data) => {
@@ -227,7 +231,7 @@ export const ContentRow = ({ update, content, ...rest }) => {
                             disabled={isCanSave}
                         >
                             <Tooltip title={"Save"}>
-                                <SaveAltIcon />
+                                <DriveFileRenameOutlineIcon />
                             </Tooltip>
                         </IconButton>
 
@@ -239,16 +243,16 @@ export const ContentRow = ({ update, content, ...rest }) => {
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
                             <Typography variant="h6" gutterBottom component="div">
-                                Detailed information
+                                {t("contentRow.detailedInfo")}
                             </Typography>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Translete text</TableCell>
-                                        <TableCell>Date</TableCell>
-                                        <TableCell>Interpreter</TableCell>
-                                        <TableCell align="right">Email</TableCell>
-                                        <TableCell align="right">Version</TableCell>
+                                        <TableCell>{t("contentRow.transleteText")}</TableCell>
+                                        <TableCell>{t("date")}</TableCell>
+                                        <TableCell>{t("interpreter")}</TableCell>
+                                        <TableCell align="right">{t("email")}</TableCell>
+                                        <TableCell align="right">{t("version")}</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

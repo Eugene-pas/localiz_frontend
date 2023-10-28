@@ -33,7 +33,7 @@ const MyIconButton = styled(IconButton)(({ theme }) => ({
   },
 }))
 
-const BoxLinks = styled(IconButton)(({ theme }) => ({
+const BoxLinks = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     display: 'none'
   },

@@ -13,8 +13,8 @@ import { setStore } from "../redux/setStore"
 
 export function register(values, navigate) {
     const model = {
-        name: values.firstName,
-        surname: values.lastName,
+        name: values.name,
+        surname: values.surname,
         email: values.email,
         password: values.password
     };

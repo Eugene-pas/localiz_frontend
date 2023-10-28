@@ -5,6 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import image from "../../assets/imgs/undraw_page_not_found_su7k.svg"
 import { ABOUT } from "../../navigation/CONSTANTS"
 import { styled } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 
 const AdapTypography = styled(Typography)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
@@ -17,6 +18,7 @@ const AdapTypography = styled(Typography)(({ theme }) => ({
 
 function UserHome() {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <>
@@ -44,15 +46,14 @@ function UserHome() {
                             variant="h2"
                             fontWeight={700}
                         >
-                            404: The page you are looking for isn’t here
+                            {t("error404.title")}
                         </AdapTypography>
                         <Typography
                             align="center"
                             color="textPrimary"
                             variant="subtitle2"
                         >
-                            You either tried some shady route or you came here by mistake.
-                            Whichever it is, try using the navigation
+                            {t("error404.help")}
                         </Typography>
                         <Box sx={{ textAlign: 'center' }}>
                             <img
@@ -73,7 +74,7 @@ function UserHome() {
                             sx={{ mt: 3 }}
                             variant="contained"
                         >
-                            Go back to home
+                            {t("error404.back")}
                         </Button>
                     </Box>
                 </Container>

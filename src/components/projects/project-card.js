@@ -19,12 +19,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDocument } from '../../redux/actions/documets/index'
 import { useNavigate } from 'react-router-dom';
 import { DOCUMENTS } from '../../navigation/CONSTANTS'
-
+import { useTranslation } from 'react-i18next';
 
 export const ProjectCard = ({ project, ...rest }) => {
   const documentReducer = useSelector(state => state.documentReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
 
   const openDocument = (project) => {    
@@ -129,7 +130,7 @@ export const ProjectCard = ({ project, ...rest }) => {
             sx={{ pl: 1 }}
             variant="body2"
           >
-            Add co-interpreter
+            {t("addUserModal.addCoInterpreter")}
           </Typography>
         </Grid>
       </Grid>

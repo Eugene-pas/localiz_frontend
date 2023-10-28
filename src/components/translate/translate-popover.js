@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 
 const TranslatePopover = (props) => {
   const {suggest ,contentText, anchorEl, onClose, open, ...other } = props;
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsOpen(open);
@@ -36,7 +38,7 @@ const TranslatePopover = (props) => {
         }}
       >
         <Typography variant="overline">
-         suggest
+         {t("TPopover.suggest")}
         </Typography>
         <Typography
           color="text.secondary"
@@ -60,7 +62,7 @@ const TranslatePopover = (props) => {
       >
         <MenuItem
         onClick={handelSuggest}>
-          Use
+          {t("TPopover.use")}
         </MenuItem>
       </MenuList>
     </Popover>

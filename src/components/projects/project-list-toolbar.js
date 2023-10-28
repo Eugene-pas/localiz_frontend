@@ -10,11 +10,13 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from '../../assets/icons/search';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ProjectCreateModal from './project-create-modal';
 
 export const ProjectListToolbar = ({projects, search, ...props}) => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [dataSearch, setDataSearch] = useState(projects);
+  const { t } = useTranslation();
 
   const hendleSearch = (event) => {
     const data = [];
@@ -42,7 +44,7 @@ export const ProjectListToolbar = ({projects, search, ...props}) => {
           sx={{ m: 1 }}
           variant="h4"
         >
-          Projects
+          {t("projects")}
         </Typography>
         <Box sx={{ m: 1 }}>
           <Button
@@ -50,7 +52,7 @@ export const ProjectListToolbar = ({projects, search, ...props}) => {
             variant="contained"
             onClick={() => setOpenCreateModal(true)}
           >
-            Cerate project
+            {t("cerateProject")}
           </Button>
         </Box>
       </Box>
@@ -73,7 +75,7 @@ export const ProjectListToolbar = ({projects, search, ...props}) => {
                     </InputAdornment>
                   )
                 }}
-                placeholder="Search projects"
+                placeholder={t("searchProjects")}
                 variant="outlined"
               />
             </Box>

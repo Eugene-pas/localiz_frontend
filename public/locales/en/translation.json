@@ -52,5 +52,118 @@
         "AppFooter": {
             "legal": "legal"
         }
-    }
+    },
+    "signIn":{
+        "notMember": "Not a member yet?",
+        "sUHere": "Sign Up here",
+        "signIn": "Sign In"
+    },
+    "signUn":{
+        "alreadyAccount": "Already have an account?",
+        "signUn": "Sign Un"
+    },
+    "inProgress": "In progress…",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "password": "Password",
+    "signOut": "Sign out",
+    "logout": "Log out",
+    "accountProfile": {
+        "subheader": "The information can be edited",
+        "title": "Profile",
+        "helperFirstName": "Please specify the first name",
+        "save": "Save details",
+        "changePicture": "Change picture"
+    },
+    "dbSlidebar": {
+        "projects": "Projects",
+        "account": "Account",
+        "about":  "About",
+        "inc": "Localiz Inc",
+        "yourtier": "Your tier"
+    },
+    "name": "Name",
+    "creationDate": "Creation Date",
+    "translationProgress": "Translation progress",
+    "action": "Action",
+    "noDataAvailable": "No data available",
+    "documents": "Documents",
+    "addDocument": "Add Document",
+    "searchDocument": "Search document",
+    "description": "Description",
+    "addUserModal": {
+        "addCoInterpreter": "Add co-interpreter",
+        "addUser": "Add user",
+        "error": "This field is required"
+    },
+    "projectCreate": {
+        "head": "Create project",
+        "from": "From",
+        "to": "To",
+        "fildRequired": "This field is required",
+        "selectOriginalL": "Select the original language",
+        "selectTranslationL": "Select the translation language"
+    },
+    "cerate": "Cerate",
+    "projects": "Projects",
+    "cerateProject": "Cerate project",
+    "searchProjects": "Search projects",
+    "default": "Default",
+    "translate": "Translate",
+    "pagination": {
+        "rowsPerPage": "Rows per page:",
+        "of": "of"
+    },
+    "getDocument": "Get document",
+    "translateDocument": "Translate Document",
+    "contentRow": {
+        "notTranslate": "I don't know how translate this text.",
+        "detailedInfo": "Detailed information",
+        "transleteText": "Translete text"
+    },
+    "date": "Date",
+    "interpreter": "Interpreter",
+    "version": "Version",
+    "TPopover": {
+        "suggest": "suggest",
+        "use": "Use"
+    },
+    "error404": {
+        "title": "404: The page you are looking for isn’t here",
+        "help": "You either tried some shady route or you came here by mistake.Whichever it is, try using the navigation",
+        "back": "Go back to home"
+    },
+    "about": {
+        "mainTitle": "Welcome to Localiz",
+        "video": "Your browser does not support the video tag.",
+        "createProject": {
+        "title": "Create Project",
+        "text_1": "To start working in the Localiz application, you need to create a project. To do this, open the Projects page, which is located on the task panel under the name 'Projects'.",
+        "text_2": "After that, you need to click the 'Create Project' button.",
+        "text_3": "Enter the information about the project you want to localize.",
+        "li_1": "In the 'From' field, enter the language you want to localize.",
+        "li_2": "In the 'To' field, enter the language you want to localize to.",
+        "alert": "Please fill in these fields carefully, as they will be used for providing hints! Without them, they <b>will not work</b>!"
+        },
+        "documentManagement": {
+        "title": "Document Management",
+        "text_1": "On the project page, you can directly add and delete documents. You can also search for specific documents. By clicking on a particular document, you will go to the localization page."
+        },
+        "localization": {
+        "title": "Localization",
+        "text_1": "The localization page contains tables with fields for localization. The 'DEFAULT' column contains the text string that needs to be localized.",
+        "text_2": "The next field is for entering the translation of the text. If you are satisfied with the translation, save it by clicking on the save icon, which is located right after the translation field.",
+        "text_3": "At the beginning, there is a button that opens additional information about this string.",
+        "li_1": "The 'Get Document' button returns the localized document.",
+        "li_2": "The 'Translate Document' button automatically translates the entire document.",
+        "alert": "If you click on the text of a string, a suggestion for its translation will appear!"
+        }
+        },
+        "tablePagination": {
+            "labelRowsPerPage": "Rows per page:",
+            "labelDisplayedRows": "{{from}}-{{to}} of {{count}}",
+            "labelDisplayedRowsUnknown": "{{count}}+",
+            "labelRowsSelect": "rows"
+          }
 }
